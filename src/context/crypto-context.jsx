@@ -1,17 +1,31 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { fakeFetchCrypto, fakeFetchAssets } from '../api';
+import { fetchCryptoData, fetchMarketCapData } from '../api';
 import { percentDifference } from '../utils';
+import { notification } from 'antd';
 
 const CryptoContext = createContext({
   assets: [],
   crypto: [],
   loading: false,
+  openNotification: () => {},
 });
 
 export function CryptoContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
-  const [crypto, setCrypto] = useState([]);
+  const [cryptoData, setCryptoData] = useState([]);
   const [assets, setAssets] = useState([]);
+  const [cryptoMarketCap, setCryptoMarketCap] = useState({});
+  const [hasError, setHasError] = useState(false);
+  const [isDataReady, setIsDataReady] = useState(false);
+
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (type, message, description) => {
+    api[type]({
+      message,
+      description,
+    });
+  };
 
   function mapAssets(assets, result) {
     return assets.map((asset) => {
@@ -30,22 +44,47 @@ export function CryptoContextProvider({ children }) {
   useEffect(() => {
     async function preload() {
       setLoading(true);
-      const { result } = await fakeFetchCrypto();
-      const assets = await fakeFetchAssets();
+      setHasError(false);
+      setIsDataReady(false);
 
-      setAssets(mapAssets(assets, result));
-      setCrypto(result);
-      setLoading(false);
+      try {
+        const [cryptoData, marketCapData] = await Promise.all([
+          fetchCryptoData(),
+          fetchMarketCapData(),
+        ]);
+
+        setCryptoData(cryptoData);
+        setCryptoMarketCap(marketCapData);
+
+        setIsDataReady(true); // Данные успешно загружены
+        openNotification('success', 'Done!', 'Данные успешно загружены.');
+      } catch (error) {
+        setHasError(true);
+        openNotification('error', 'Ошибка загрузки', `${error.message}`);
+      } finally {
+        setLoading(false);
+      }
     }
+
     preload();
   }, []);
 
   function addAsset(newAsset) {
-    setAssets((prev) => mapAssets([...prev, newAsset], crypto));
+    setAssets((prev) => mapAssets([...prev, newAsset], cryptoData));
   }
 
   return (
-    <CryptoContext.Provider value={{ loading, crypto, assets, addAsset }}>
+    <CryptoContext.Provider
+      value={{
+        cryptoData,
+        cryptoMarketCap,
+        loading,
+        isDataReady,
+        hasError,
+        openNotification,
+      }}
+    >
+      {contextHolder}
       {children}
     </CryptoContext.Provider>
   );
