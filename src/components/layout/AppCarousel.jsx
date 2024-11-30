@@ -46,7 +46,8 @@ export default function AppCarousel() {
   return (
     <>
       <Carousel
-        autoplaySpeed={10000}
+        autoplay
+        autoplaySpeed={5000}
         infinite={true}
         style={{ background: '#364d79' }}
       >
