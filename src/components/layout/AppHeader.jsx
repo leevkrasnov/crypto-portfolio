@@ -20,26 +20,26 @@ export default function AppHeader() {
   const [coin, setCoin] = useState(null);
   const [modal, setModal] = useState(false);
   const [drower, setDrawer] = useState(false);
-  const { crypto } = useCrypto();
+  const { cryptoData } = useCrypto();
 
-  useEffect(() => {
-    const keypress = (event) => {
-      if (event.key === '/') {
-        setSelect((prev) => !prev);
-      }
-    };
-    document.addEventListener('keypress', keypress);
-    return () => document.removeEventListener('keypress', keypress);
-  }, []);
+  // useEffect(() => {
+  //   const keypress = (event) => {
+  //     if (event.key === '/') {
+  //       setSelect((prev) => !prev);
+  //     }
+  //   };
+  //   document.addEventListener('keypress', keypress);
+  //   return () => document.removeEventListener('keypress', keypress);
+  // }, []);
 
-  function handleSelect(value) {
-    setCoin(crypto.find((c) => c.id === value));
-    setModal(true);
-  }
+  // function handleSelect(value) {
+  //   // setCoin(cryptoData.find((c) => c.id === value));
+  //   // setModal(true);
+  // }
 
   return (
     <Layout.Header style={headerStyle}>
-      <Select
+      {/* <Select
         style={{
           width: '250px',
         }}
@@ -62,17 +62,17 @@ export default function AppHeader() {
             {option.data.label}
           </Space>
         )}
-      />
+      /> */}
       <Button type="primary" onClick={() => setDrawer(true)}>
         Add Asset
       </Button>
 
       <Modal open={modal} onCancel={() => setModal(false)} footer={null}>
-        <CoinInfoModal coin={coin} />
+        <CoinInfoModal />
       </Modal>
       <Drawer
         destroyOnClose
-        title="Add Asset"
+        title="Добавить актив"
         width={600}
         onClose={() => setDrawer(false)}
         open={drower}

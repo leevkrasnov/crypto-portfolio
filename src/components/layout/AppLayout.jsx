@@ -10,13 +10,9 @@ import AppCarousel from './AppCarousel';
 export default function AppLayout() {
   const { loading } = useContext(CryptoContext);
 
-  if (loading) {
-    return <Spin fullscreen />;
-  }
-
   return (
     <Layout>
-      {/* <AppHeader /> */}
+      <AppHeader />
       <Layout>
         <AppCarousel />
         {/* <AppSider /> */}

@@ -54,6 +54,7 @@ export function CryptoContextProvider({ children }) {
         ]);
 
         setCryptoData(cryptoData);
+        console.log(cryptoData);
         setCryptoMarketCap(marketCapData);
 
         setIsDataReady(true); // Данные успешно загружены
