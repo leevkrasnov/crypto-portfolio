@@ -23,7 +23,7 @@ const validateMessages = {
 
 export default function AddAssetForm({ onClose }) {
   const [form] = Form.useForm();
-  const { cryptoData, addAsset } = useCrypto();
+  const { cryptoData, setSelectedAsset } = useCrypto();
   const [coin, setCoin] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const assetRef = useRef();
@@ -95,9 +95,15 @@ export default function AddAssetForm({ onClose }) {
   }
 
   function onFinish(values) {
+    const selectedCoin = cryptoData.find((c) => c.id === values.coin);
+
+    if (!selectedCoin) {
+      console.error('Криптовалюта не найдена');
+      return;
+    }
+
     const newAsset = {
-      id: coin.id,
-      amount: values.amount,
+      coin: selectedCoin,
       priceBuy: values.priceBuy,
       amountBuy: values.amountBuy,
       priceSell: values.priceSell,
@@ -106,15 +112,16 @@ export default function AddAssetForm({ onClose }) {
       saleDate: values.saleDate?.$d,
     };
 
+    console.log('New Asset:', newAsset);
     assetRef.current = newAsset;
     setSubmitted(true);
-    addAsset(newAsset);
+    setSelectedAsset(newAsset);
   }
 
   return (
     <Form
       form={form}
-      name="basic"
+      name="coin"
       // layout="horizontal"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 20 }}
@@ -122,26 +129,30 @@ export default function AddAssetForm({ onClose }) {
       onFinish={onFinish}
       validateMessages={validateMessages}
     >
-      <Select
-        style={{ width: '100%' }}
-        value={coin?.id || undefined}
-        onChange={(id) => setCoin(cryptoData.find((c) => c.id === id))}
-        placeholder="Выбери криптовалюту"
-        optionLabelProp="children"
-      >
-        {cryptoData.map((coin) => (
-          <Select.Option key={coin.id} value={coin.id}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <img
-                src={coin.image}
-                alt={coin.name}
-                style={{ width: 20, height: 20 }}
-              />
-              {coin.name}
-            </div>
-          </Select.Option>
-        ))}
-      </Select>
+      <Form.Item name="coin">
+        <Select
+          style={{ width: '100%' }}
+          value={coin?.id || undefined}
+          onChange={(id) => setCoin(cryptoData.find((c) => c.id === id))}
+          placeholder="Выбери криптовалюту"
+          optionLabelProp="children"
+        >
+          {cryptoData.map((coin) => (
+            <Select.Option key={coin.id} value={coin.id}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              >
+                <img
+                  src={coin.image}
+                  alt={coin.name}
+                  style={{ width: 20, height: 20 }}
+                />
+                {coin.name}
+              </div>
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
 
       <Divider />
 

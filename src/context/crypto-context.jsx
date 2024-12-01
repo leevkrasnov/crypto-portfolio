@@ -4,16 +4,17 @@ import { percentDifference } from '../utils';
 import { notification } from 'antd';
 
 const CryptoContext = createContext({
-  assets: [],
-  crypto: [],
+  cryptoData: [],
+  selectedAsset: null,
   loading: false,
   openNotification: () => {},
+  setSelectedAsset: () => {},
 });
 
 export function CryptoContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [cryptoData, setCryptoData] = useState([]);
-  const [assets, setAssets] = useState([]);
+  const [selectedAsset, setSelectedAsset] = useState(null);
   const [cryptoMarketCap, setCryptoMarketCap] = useState({});
   const [hasError, setHasError] = useState(false);
   const [isDataReady, setIsDataReady] = useState(false);
@@ -27,19 +28,19 @@ export function CryptoContextProvider({ children }) {
     });
   };
 
-  function mapAssets(assets, result) {
-    return assets.map((asset) => {
-      const coin = result.find((c) => c.id === asset.id);
-      return {
-        grow: asset.price < coin.price,
-        growPercent: percentDifference(asset.price, coin.price),
-        totalAmount: asset.amount * coin.price,
-        totalProfit: asset.amount * coin.price - asset.amount * asset.price,
-        name: coin.name,
-        ...asset,
-      };
-    });
-  }
+  // function mapAssets(assets, result) {
+  //   return assets.map((asset) => {
+  //     const coin = result.find((c) => c.id === asset.id);
+  //     return {
+  //       grow: asset.price < coin.price,
+  //       growPercent: percentDifference(asset.price, coin.price),
+  //       totalAmount: asset.amount * coin.price,
+  //       totalProfit: asset.amount * coin.price - asset.amount * asset.price,
+  //       name: coin.name,
+  //       ...asset,
+  //     };
+  //   });
+  // }
 
   useEffect(() => {
     async function preload() {
@@ -70,15 +71,17 @@ export function CryptoContextProvider({ children }) {
     preload();
   }, []);
 
-  function addAsset(newAsset) {
-    setAssets((prev) => mapAssets([...prev, newAsset], cryptoData));
-  }
+  // function addAsset(newAsset) {
+  //   setAssets((prev) => mapAssets([...prev, newAsset], cryptoData));
+  // }
 
   return (
     <CryptoContext.Provider
       value={{
         cryptoData,
         cryptoMarketCap,
+        selectedAsset,
+        setSelectedAsset,
         loading,
         isDataReady,
         hasError,

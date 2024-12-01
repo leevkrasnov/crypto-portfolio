@@ -21,19 +21,19 @@ export default function AppCarousel() {
     return null;
   }
 
-  useEffect(() => {
-    if (!loading && (!cryptoMarketCap || cryptoMarketCap.length === 0)) {
-      openNotification('error', 'Ошибка', 'Данные криптовалют недоступны');
-    }
-  }, [loading, cryptoMarketCap]);
+  // useEffect(() => {
+  //   if (!loading && (!cryptoMarketCap || cryptoMarketCap.length === 0)) {
+  //     openNotification('error', 'Ошибка', 'Данные криптовалют недоступны');
+  //   }
+  // }, [loading, cryptoMarketCap]);
 
-  if (loading) {
-    return <Spin fullscreen />;
-  }
+  // if (loading) {
+  //   return <Spin fullscreen />;
+  // }
 
-  if (!cryptoMarketCap || cryptoMarketCap.length === 0) {
-    return null;
-  }
+  // if (!cryptoMarketCap || cryptoMarketCap.length === 0) {
+  //   return null;
+  // }
 
   const bitcoin = cryptoData.find((coin) => coin.id === 'bitcoin');
   const ethereum = cryptoData.find((coin) => coin.id === 'ethereum');

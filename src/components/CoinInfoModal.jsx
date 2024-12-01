@@ -1,11 +1,11 @@
 import { Divider, Tag, Typography } from 'antd';
-import CoinInfo from './CoinInfo';
+import CoinInfoProfit from './CoinInfoProfit';
 
-export default function CoinInfoModal({ coin }) {
+export default function CoinInfoModal() {
   return (
     <>
-      <CoinInfo coin={coin} withSymbol />
-      <Divider />
+      <CoinInfoProfit />
+      {/* <Divider />
       <Typography.Paragraph>
         <Typography.Text strong>1 hour: </Typography.Text>
         <Tag color={coin.priceChange1h > 0 ? 'green' : 'red'}>
@@ -35,7 +35,7 @@ export default function CoinInfoModal({ coin }) {
       <Typography.Paragraph>
         <Typography.Text strong>Contract Address: </Typography.Text>
         {coin.contractAddress}
-      </Typography.Paragraph>
+      </Typography.Paragraph> */}
     </>
   );
 }
