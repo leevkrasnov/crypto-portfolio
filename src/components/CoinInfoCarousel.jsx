@@ -24,7 +24,7 @@ export default function CoinInfoCarousel({ coin, image }) {
         <Divider />
         <Flex style={{ justifyContent: 'space-between' }}>
           <Statistic
-            style={{ marginRight: '4rem' }}
+            style={{ marginRight: '3rem' }}
             title="Цена"
             value={coin.current_price}
             precision={2}

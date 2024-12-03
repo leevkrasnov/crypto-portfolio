@@ -10,7 +10,7 @@ const headerStyle = {
   marginRight: '2rem',
   marginTop: '3rem',
   display: 'flex',
-  background: '#BC8F8F',
+  background: '#fafafa',
   justifyContent: 'end',
   gap: '2rem',
   alignItems: 'center',
@@ -26,8 +26,6 @@ export default function AppHeader() {
         style={{
           width: '180px',
           height: '40px',
-          backgroundColor: '#FFF0F5',
-          color: 'black',
         }}
         type="primary"
         onClick={() => setModal(true)}
@@ -39,6 +37,7 @@ export default function AppHeader() {
         open={modal}
         onCancel={() => setModal(false)}
         footer={null}
+        width={1000}
       >
         <CoinProfitModal />
       </Modal>
@@ -47,8 +46,6 @@ export default function AppHeader() {
         style={{
           width: '180px',
           height: '40px',
-          backgroundColor: '#FAF0E6',
-          color: 'black',
         }}
         type="primary"
         onClick={() => setDrawer(true)}

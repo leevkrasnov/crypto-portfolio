@@ -45,5 +45,13 @@ export default function AssetsTable() {
     pL: asset.priceSell * asset.amountSell - asset.priceBuy * asset.amountBuy,
   }));
 
-  return <Table pagination={false} columns={columns} dataSource={data} />;
+  return (
+    <Table
+      pagination={false}
+      columns={columns}
+      dataSource={data}
+      className="table"
+      scroll={{ y: 800 }}
+    />
+  );
 }

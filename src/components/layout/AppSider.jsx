@@ -10,7 +10,7 @@ const siderStyle = {
   marginLeft: '3rem',
   marginTop: '3rem',
   color: '#fff',
-  backgroundColor: '#BC8F8F',
+  backgroundColor: '#fafafa',
 };
 
 export default function AppSider() {

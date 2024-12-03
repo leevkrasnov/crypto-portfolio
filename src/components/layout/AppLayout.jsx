@@ -13,9 +13,9 @@ export default function AppLayout() {
   }
 
   return (
-    <Layout style={{ background: '#BC8F8F' }}>
+    <Layout style={{ background: '#fafafa' }}>
       <AppHeader />
-      <Layout style={{ background: '#BC8F8F' }}>
+      <Layout style={{ background: '#fafafa' }}>
         <AppSider />
         <AppContent />
       </Layout>

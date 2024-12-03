@@ -18,7 +18,7 @@
 }
 
 body {
-  background: #bc8f8f;
+  background: #fafafa;
 }
 
 @keyframes blackWhiteGradient {
@@ -35,11 +35,11 @@ body {
 
 .black-white-text {
   font-weight: bold;
-  background: linear-gradient(90deg, #008080, #006400, #2e8b57);
+  background: linear-gradient(90deg, #008080, #e9967a, #2e8b57);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: blackWhiteGradient 5s ease infinite;
+  animation: blackWhiteGradient 10s ease infinite;
 }
 
 .card {
@@ -47,8 +47,20 @@ body {
   height: 220px;
   display: flex;
   align-items: center;
+  border: 2px solid gray;
 }
 
-.shadow {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.table {
+  border: 2px solid gray;
+  border-radius: 8px 8px 2px 2px;
+  height: 470px;
+  overflow-y: auto;
+}
+
+.ant-carousel .slick-dots li button {
+  background: #b0c4de; /* Цвет неактивных точек */
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  background: #1e90ff; /* Цвет активной точки */
 }
