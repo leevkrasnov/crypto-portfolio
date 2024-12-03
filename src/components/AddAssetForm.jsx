@@ -23,19 +23,19 @@ const validateMessages = {
 
 export default function AddAssetForm({ onClose }) {
   const [form] = Form.useForm();
-  const { cryptoData, setSelectedAsset } = useCrypto();
+  const { cryptoData, addAsset } = useCrypto();
   const [coin, setCoin] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const assetRef = useRef();
 
-  if (submitted) {
+  if (submitted && coin) {
     return (
       <Result
         status="success"
         title={coin.name}
         subTitle={
           <div style={{}}>
-            Стоимость:{' '}
+            Стоимость покупки:{' '}
             <b>
               {
                 +(
@@ -47,7 +47,7 @@ export default function AddAssetForm({ onClose }) {
             Дата покупки:{' '}
             <b>{assetRef.current.purchaseDate?.toLocaleDateString()}</b> <br />
             <br />
-            Стоимость:{' '}
+            Стоимость продажи:{' '}
             <b>
               {
                 +(
@@ -74,10 +74,12 @@ export default function AddAssetForm({ onClose }) {
       <Select
         style={{ width: '100%' }}
         value={coin?.id || undefined}
-        onChange={(v) => setCoin(cryptoData.find((c) => c.id === v))}
+        onChange={(id) => setCoin(cryptoData.find((c) => c.id === id))}
         placeholder="Выбери криптовалюту"
-        options={cryptoData.map((coin) => ({
-          label: (
+        optionLabelProp="label"
+      >
+        {cryptoData.map((coin) => (
+          <Select.Option key={coin.id} value={coin.id}>
             <Space>
               <img
                 src={coin.image}
@@ -86,24 +88,15 @@ export default function AddAssetForm({ onClose }) {
               />
               {coin.name}
             </Space>
-          ),
-          value: coin.id,
-        }))}
-        optionLabelProp="label"
-      />
+          </Select.Option>
+        ))}
+      </Select>
     );
   }
 
   function onFinish(values) {
-    const selectedCoin = cryptoData.find((c) => c.id === values.coin);
-
-    if (!selectedCoin) {
-      console.error('Криптовалюта не найдена');
-      return;
-    }
-
     const newAsset = {
-      coin: selectedCoin,
+      coin: coin,
       priceBuy: values.priceBuy,
       amountBuy: values.amountBuy,
       priceSell: values.priceSell,
@@ -112,47 +105,41 @@ export default function AddAssetForm({ onClose }) {
       saleDate: values.saleDate?.$d,
     };
 
-    console.log('New Asset:', newAsset);
+    addAsset(newAsset);
     assetRef.current = newAsset;
     setSubmitted(true);
-    setSelectedAsset(newAsset);
   }
 
   return (
     <Form
       form={form}
       name="coin"
-      // layout="horizontal"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 20 }}
       style={{ maxWidth: 600, margin: '0 auto' }}
       onFinish={onFinish}
       validateMessages={validateMessages}
     >
-      <Form.Item name="coin">
-        <Select
-          style={{ width: '100%' }}
-          value={coin?.id || undefined}
-          onChange={(id) => setCoin(cryptoData.find((c) => c.id === id))}
-          placeholder="Выбери криптовалюту"
-          optionLabelProp="children"
-        >
-          {cryptoData.map((coin) => (
-            <Select.Option key={coin.id} value={coin.id}>
-              <div
-                style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-              >
-                <img
-                  src={coin.image}
-                  alt={coin.name}
-                  style={{ width: 20, height: 20 }}
-                />
-                {coin.name}
-              </div>
-            </Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
+      <Select
+        style={{ width: '100%' }}
+        value={coin?.id || undefined}
+        onChange={(id) => setCoin(cryptoData.find((c) => c.id === id))}
+        placeholder="Выбери криптовалюту"
+        optionLabelProp="children"
+      >
+        {cryptoData.map((coin) => (
+          <Select.Option key={coin.id} value={coin.id}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <img
+                src={coin.image}
+                alt={coin.name}
+                style={{ width: 20, height: 20 }}
+              />
+              {coin.name}
+            </div>
+          </Select.Option>
+        ))}
+      </Select>
 
       <Divider />
 

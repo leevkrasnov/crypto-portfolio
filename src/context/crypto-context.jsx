@@ -1,20 +1,22 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { fetchCryptoData, fetchMarketCapData } from '../api';
-import { percentDifference } from '../utils';
+import { fetchCryptoData, fetchMarketCapData, getExchangeRate } from '../api';
 import { notification } from 'antd';
 
 const CryptoContext = createContext({
   cryptoData: [],
-  selectedAsset: null,
+  assets: [],
+  exchangeRate: null,
   loading: false,
   openNotification: () => {},
   setSelectedAsset: () => {},
+  fetchExchangeRate: () => {},
 });
 
 export function CryptoContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [cryptoData, setCryptoData] = useState([]);
-  const [selectedAsset, setSelectedAsset] = useState(null);
+  const [exchangeRate, setExchangeRate] = useState(null);
+  const [assets, setAssets] = useState([]);
   const [cryptoMarketCap, setCryptoMarketCap] = useState({});
   const [hasError, setHasError] = useState(false);
   const [isDataReady, setIsDataReady] = useState(false);
@@ -27,20 +29,6 @@ export function CryptoContextProvider({ children }) {
       description,
     });
   };
-
-  // function mapAssets(assets, result) {
-  //   return assets.map((asset) => {
-  //     const coin = result.find((c) => c.id === asset.id);
-  //     return {
-  //       grow: asset.price < coin.price,
-  //       growPercent: percentDifference(asset.price, coin.price),
-  //       totalAmount: asset.amount * coin.price,
-  //       totalProfit: asset.amount * coin.price - asset.amount * asset.price,
-  //       name: coin.name,
-  //       ...asset,
-  //     };
-  //   });
-  // }
 
   useEffect(() => {
     async function preload() {
@@ -55,11 +43,9 @@ export function CryptoContextProvider({ children }) {
         ]);
 
         setCryptoData(cryptoData);
-        console.log(cryptoData);
         setCryptoMarketCap(marketCapData);
 
-        setIsDataReady(true); // Данные успешно загружены
-        openNotification('success', 'Done!', 'Данные успешно загружены.');
+        setIsDataReady(true);
       } catch (error) {
         setHasError(true);
         openNotification('error', 'Ошибка загрузки', `${error.message}`);
@@ -69,19 +55,30 @@ export function CryptoContextProvider({ children }) {
     }
 
     preload();
+    fetchExchangeRate();
   }, []);
 
-  // function addAsset(newAsset) {
-  //   setAssets((prev) => mapAssets([...prev, newAsset], cryptoData));
-  // }
+  async function fetchExchangeRate() {
+    try {
+      const rate = await getExchangeRate();
+      setExchangeRate(rate);
+    } catch (error) {
+      openNotification('error', 'Ошибка курса валют', `${error.message}`);
+    }
+  }
+
+  function addAsset(newAsset) {
+    setAssets((prevAsset) => [...prevAsset, newAsset]);
+  }
 
   return (
     <CryptoContext.Provider
       value={{
         cryptoData,
         cryptoMarketCap,
-        selectedAsset,
-        setSelectedAsset,
+        assets,
+        exchangeRate,
+        addAsset,
         loading,
         isDataReady,
         hasError,

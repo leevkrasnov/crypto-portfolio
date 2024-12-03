@@ -3,14 +3,14 @@ import { PercentageOutlined } from '@ant-design/icons';
 
 export function calculateAltcoinDominance(marketCapPercentage) {
   return Object.entries(marketCapPercentage)
-    .filter(([coin]) => coin !== 'btc') // Исключаем BTC
-    .reduce((total, [, dominance]) => total + dominance, 0); // Суммируем проценты
+    .filter(([coin]) => coin !== 'btc')
+    .reduce((total, [, dominance]) => total + dominance, 0);
 }
 
 export default function MarketCapInfo({ btcMC, altMC }) {
   return (
-    <Flex vertical align="center" justify="center" style={{ margin: '2rem' }}>
-      <Card style={{ background: '#F8F8FF' }}>
+    <Flex vertical align="center" justify="center">
+      <Card className="card">
         <Flex>
           <img
             src="/miner.svg"
@@ -22,9 +22,8 @@ export default function MarketCapInfo({ btcMC, altMC }) {
           </Typography.Title>
         </Flex>
         <Divider />
-        <Flex>
+        <Flex style={{ justifyContent: 'space-between' }}>
           <Statistic
-            style={{ marginRight: '20px' }}
             title="Bitcoin"
             value={btcMC}
             precision={2}

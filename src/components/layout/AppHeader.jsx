@@ -1,78 +1,63 @@
-import { Layout, Select, Space, Button, Modal, Drawer } from 'antd';
-import { useCrypto } from '../../context/crypto-context';
-import { useState, useEffect } from 'react';
-import CoinInfoModal from '../CoinInfoModal';
+import { Layout, Button, Modal, Drawer } from 'antd';
+import { useState } from 'react';
 import AddAssetForm from '../AddAssetForm';
+import CoinProfitModal from '../CoinProfitModal';
 
 const headerStyle = {
   width: '100%',
   textAlign: 'center',
   height: 60,
-  padding: '1 rem',
+  marginRight: '2rem',
+  marginTop: '3rem',
   display: 'flex',
-  background: 'white',
-  justifyContent: 'space-between',
+  background: '#BC8F8F',
+  justifyContent: 'end',
+  gap: '2rem',
   alignItems: 'center',
 };
 
 export default function AppHeader() {
-  const [select, setSelect] = useState(false);
-  const [coin, setCoin] = useState(null);
   const [modal, setModal] = useState(false);
   const [drower, setDrawer] = useState(false);
-  const { cryptoData } = useCrypto();
-
-  // useEffect(() => {
-  //   const keypress = (event) => {
-  //     if (event.key === '/') {
-  //       setSelect((prev) => !prev);
-  //     }
-  //   };
-  //   document.addEventListener('keypress', keypress);
-  //   return () => document.removeEventListener('keypress', keypress);
-  // }, []);
-
-  // function handleSelect(value) {
-  //   // setCoin(cryptoData.find((c) => c.id === value));
-  //   // setModal(true);
-  // }
 
   return (
     <Layout.Header style={headerStyle}>
-      {/* <Select
+      <Button
         style={{
-          width: '250px',
+          width: '180px',
+          height: '40px',
+          backgroundColor: '#FFF0F5',
+          color: 'black',
         }}
-        open={select}
-        onSelect={handleSelect}
-        onClick={() => setSelect((prev) => !prev)}
-        value="press / to open"
-        options={crypto.map((coin) => ({
-          label: coin.name,
-          value: coin.id,
-          icon: coin.icon,
-        }))}
-        optionRender={(option) => (
-          <Space>
-            <img
-              src={option.data.icon}
-              alt={option.data.label}
-              style={{ width: 20 }}
-            />{' '}
-            {option.data.label}
-          </Space>
-        )}
-      /> */}
-      <Button type="primary" onClick={() => setDrawer(true)}>
-        Add Asset
+        type="primary"
+        onClick={() => setModal(true)}
+      >
+        Показать операции
       </Button>
-
-      <Modal open={modal} onCancel={() => setModal(false)} footer={null}>
-        <CoinInfoModal />
+      <Modal
+        title="Все операции"
+        open={modal}
+        onCancel={() => setModal(false)}
+        footer={null}
+      >
+        <CoinProfitModal />
       </Modal>
+
+      <Button
+        style={{
+          width: '180px',
+          height: '40px',
+          backgroundColor: '#FAF0E6',
+          color: 'black',
+        }}
+        type="primary"
+        onClick={() => setDrawer(true)}
+      >
+        Добавить операцию
+      </Button>
       <Drawer
         destroyOnClose
-        title="Добавить актив"
+        title="Добавить операцию"
         width={600}
         onClose={() => setDrawer(false)}
         open={drower}
