@@ -1,13 +1,18 @@
 import { useCrypto } from '../context/crypto-context';
 import { Table, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-const columns = (removeAsset) => [
+
+const calculateProfitLoss = (asset) => {
+  return asset.priceSell * asset.amountSell - asset.priceBuy * asset.amountBuy;
+};
+
+const getColumns = (removeAsset) => [
   {
     title: 'Актив',
     dataIndex: 'name',
     sorter: (a, b) => a.name.localeCompare(b.name),
     sortDirections: ['ascend', 'descend'],
-    render: (value) => <span style={{ fontWeight: 'bold' }}>{value}</span>,
+    render: (value) => <span className="table-bold">{value}</span>,
   },
   {
     title: 'Цена покупки',
@@ -27,7 +32,11 @@ const columns = (removeAsset) => [
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.pL - b.pL,
     render: (value) => (
-      <span style={{ color: value > 0 ? 'green' : 'red' }}>
+      <span
+        className={
+          value > 0 ? 'table-profit-positive' : 'table-profit-negative'
+        }
+      >
         {value.toFixed(2)}
       </span>
     ),
@@ -51,20 +60,20 @@ const columns = (removeAsset) => [
 export default function AssetsTable() {
   const { assets, removeAsset } = useCrypto();
 
-  const data = assets.map((asset) => ({
+  const tableData = assets.map((asset) => ({
     key: asset.id,
     id: asset.id,
     name: asset.coin.name,
     priceBuy: asset.priceBuy,
     priceSell: asset.priceSell,
-    pL: asset.priceSell * asset.amountSell - asset.priceBuy * asset.amountBuy,
+    pL: calculateProfitLoss(asset),
   }));
 
   return (
     <Table
       pagination={false}
-      columns={columns(removeAsset)}
-      dataSource={data}
+      columns={getColumns(removeAsset)}
+      dataSource={tableData}
       className="table"
       scroll={{ y: 800 }}
     />

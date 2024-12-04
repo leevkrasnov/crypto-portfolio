@@ -1,60 +1,35 @@
 import { Layout, Button, Modal, Drawer, Flex } from 'antd';
-import { useState } from 'react';
 import AddAssetForm from '../AddAssetForm';
 import CoinProfitModal from '../CoinProfitModal';
 import ButtonLogOut from '../ButtonLogOut';
-
-const headerStyle = {
-  width: '100%',
-  textAlign: 'center',
-  height: 80,
-  marginTop: '3rem',
-  display: 'flex',
-  flexDirection: 'column',
-  background: '#fafafa',
-  justifyContent: 'center',
-};
+import { useModalState } from '../../hooks/useModalState';
 
 export default function AppHeader() {
-  const [modal, setModal] = useState(false);
-  const [drower, setDrawer] = useState(false);
+  const {
+    isOpen: isModalOpen,
+    open: openModal,
+    close: closeModal,
+  } = useModalState();
+
+  const {
+    isOpen: isDrawerOpen,
+    open: openDrawer,
+    close: closeDrawer,
+  } = useModalState();
 
   return (
-    <Layout.Header style={headerStyle}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          gap: '16px',
-        }}
-      >
+    <Layout.Header className="header">
+      <div className="header-buttons">
         <ButtonLogOut />
       </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          gap: '16px',
-        }}
-      >
-        <Button
-          style={{
-            width: '180px',
-            height: '40px',
-            fontSize: '16px',
-            marginTop: '20px',
-          }}
-          type="primary"
-          onClick={() => setModal(true)}
-        >
+      <div className="header-buttons">
+        <Button className="button-primary" type="primary" onClick={openModal}>
           История
         </Button>
         <Modal
-          open={modal}
-          onCancel={() => setModal(false)}
+          open={isModalOpen}
+          onCancel={closeModal}
           footer={null}
           width={1000}
           style={{ height: '800px', overflow: 'auto' }}
@@ -62,16 +37,7 @@ export default function AppHeader() {
           <CoinProfitModal />
         </Modal>
 
-        <Button
-          style={{
-            width: '180px',
-            height: '40px',
-            fontSize: '16px',
-            marginTop: '20px',
-          }}
-          type="primary"
-          onClick={() => setDrawer(true)}
-        >
+        <Button className="button-primary" type="primary" onClick={openDrawer}>
           Добавить
         </Button>
 
@@ -79,10 +45,10 @@ export default function AppHeader() {
           destroyOnClose
           title="Добавить операцию"
           width={600}
-          onClose={() => setDrawer(false)}
-          open={drower}
+          onClose={closeDrawer}
+          open={isDrawerOpen}
         >
-          <AddAssetForm onClose={() => setDrawer(false)} />
+          <AddAssetForm onClose={closeDrawer} />
         </Drawer>
       </div>
     </Layout.Header>

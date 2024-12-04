@@ -50,7 +50,7 @@ export function CryptoContextProvider({ children }) {
 
   function logout() {
     setIsAuthenticated(false);
-    setIsDemoMode(false);
+    setIsDemoMode(false); // Сбрасываем демо-режим
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('isDemoMode');
   }

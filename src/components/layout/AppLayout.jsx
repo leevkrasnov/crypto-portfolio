@@ -8,14 +8,16 @@ import AppSider from './AppSider';
 export default function AppLayout() {
   const { loading } = useContext(CryptoContext);
 
+  // Отображение спиннера при загрузке
   if (loading) {
-    return <Spin fullscreen />;
+    return <Spin spinning fullscreen />;
   }
 
+  // Основной макет приложения
   return (
-    <Layout style={{ background: '#fafafa' }}>
+    <Layout className="layout-container">
       <AppHeader />
-      <Layout style={{ background: '#fafafa' }}>
+      <Layout className="layout-container">
         <AppSider />
         <AppContent />
       </Layout>

@@ -21,6 +21,64 @@ body {
   background: #fafafa;
 }
 
+.header {
+  width: 100%;
+  text-align: center;
+  height: 80px;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+  justify-content: center;
+}
+
+.header-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.button-primary {
+  width: 180px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.layout-container {
+  background: #fafafa;
+}
+
+.app-content {
+  text-align: center;
+  line-height: 1.5;
+  margin: 2rem 3rem;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.table-bold {
+  font-weight: bold;
+}
+
+.table-profit-positive {
+  color: green;
+}
+
+.table-profit-negative {
+  color: red;
+}
+
+.app-sider {
+  text-align: center;
+  line-height: 1.5;
+  margin-left: 2rem;
+  margin-top: 2rem;
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+
 @keyframes blackWhiteGradient {
   0% {
     background-position: 0% 50%;
