@@ -6,6 +6,8 @@ export default function AuthForm() {
   const { login, setDemoMode, setIsAuthenticated } = useCrypto();
 
   function handleSubmit(values) {
+    console.log('Пароль:', import.meta.env.VITE_SECRET_PASSWORD);
+
     login(values.password);
   }
 
