@@ -1,6 +1,10 @@
+// Универсальная функция для запросов через AllOrigins
 async function fetchData(API_URL) {
+  const PROXY_URL = 'https://api.allorigins.win/get?url=';
+  const ENCODED_URL = encodeURIComponent(API_URL);
+
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${PROXY_URL}${ENCODED_URL}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -8,11 +12,18 @@ async function fetchData(API_URL) {
     });
 
     if (!response.ok) {
-      throw new Error(`Ошибка HTTP! статус: ${response.status}`);
+      throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
     }
 
     const data = await response.json();
-    return data;
+
+    // Проверяем, возвращается ли XML
+    if (data.contents.startsWith('<?xml')) {
+      return data.contents;
+    }
+
+    // Пытаемся обработать как JSON
+    return JSON.parse(data.contents);
   } catch (error) {
     console.error('Ошибка при запросе к API:', error);
     throw error;
@@ -32,18 +43,22 @@ export async function fetchMarketCapData() {
   return fetchData(API_URL);
 }
 
+// Функция для получения курса валют
 export async function getExchangeRate() {
-  try {
-    const response = await fetch('https://www.cbr.ru/scripts/XML_daily.asp');
-    const text = await response.text();
+  const API_URL = 'https://www.cbr.ru/scripts/XML_daily.asp';
 
+  try {
+    const data = await fetchData(API_URL); // XML возвращается как строка
     const parser = new DOMParser();
-    const xml = parser.parseFromString(text, 'text/xml');
+    const xml = parser.parseFromString(data, 'text/xml');
+
     const usdRate = xml
       .querySelector('Valute[ID="R01235"] Value')
       .textContent.replace(',', '.');
+
     return parseFloat(usdRate);
   } catch (error) {
-    throw new Error('Ошибка получения курса валют');
+    console.error('Ошибка при запросе к курсу валют:', error);
+    throw error;
   }
 }

@@ -94,7 +94,7 @@ export default function AddAssetForm({ onClose }) {
     );
   }
 
-  function onFinish(values) {
+  async function onFinish(values) {
     const newAsset = {
       coin: coin,
       priceBuy: values.priceBuy,
@@ -105,9 +105,13 @@ export default function AddAssetForm({ onClose }) {
       saleDate: values.saleDate?.$d,
     };
 
-    addAsset(newAsset);
-    assetRef.current = newAsset;
-    setSubmitted(true);
+    try {
+      addAsset(newAsset);
+      assetRef.current = newAsset;
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Ошибка добавления актива:', error);
+    }
   }
 
   return (

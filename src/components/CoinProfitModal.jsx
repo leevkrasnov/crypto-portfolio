@@ -4,6 +4,7 @@ import { useCrypto } from '../context/crypto-context';
 
 export default function CoinProfitModal() {
   const { assets } = useCrypto();
+  console.log(assets);
 
   if (!assets || assets.length === 0) {
     return <Typography.Text>Нет данных для отображения</Typography.Text>;
@@ -32,7 +33,8 @@ export default function CoinProfitModal() {
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         gap: '2rem',
-        margin: '2rem 6rem',
+        margin: '2rem 6rem 8rem',
+        marginBottom: '200px',
       }}
     >
       {uniqueAssets.map((asset) => {

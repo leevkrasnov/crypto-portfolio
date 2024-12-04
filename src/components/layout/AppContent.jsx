@@ -5,7 +5,7 @@ import AssetsTable from '../AssetsTable';
 const contentStyle = {
   textAlign: 'center',
   lineHeight: '120px',
-  margin: '2rem',
+  margin: '2rem 3rem',
   color: '#fff',
   background: '#fafafa',
 };
