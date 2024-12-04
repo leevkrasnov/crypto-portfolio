@@ -6,7 +6,7 @@ import CoinProfitModal from '../CoinProfitModal';
 const headerStyle = {
   width: '100%',
   textAlign: 'center',
-  height: 60,
+  height: 40,
   marginRight: '2rem',
   marginTop: '3rem',
   display: 'flex',
@@ -26,14 +26,14 @@ export default function AppHeader() {
         style={{
           width: '180px',
           height: '40px',
+          fontSize: '16px',
         }}
         type="primary"
         onClick={() => setModal(true)}
       >
-        Показать операции
+        История
       </Button>
       <Modal
-        title="Все операции"
         open={modal}
         onCancel={() => setModal(false)}
         footer={null}
@@ -46,11 +46,12 @@ export default function AppHeader() {
         style={{
           width: '180px',
           height: '40px',
+          fontSize: '16px',
         }}
         type="primary"
         onClick={() => setDrawer(true)}
       >
-        Добавить операцию
+        Добавить
       </Button>
       <Drawer
         destroyOnClose

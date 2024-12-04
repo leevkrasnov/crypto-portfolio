@@ -61,7 +61,7 @@ export default function AddAssetForm({ onClose }) {
           </div>
         }
         extra={[
-          <Button type="primary" onClick={onClose}>
+          <Button key="closeButton" type="primary" onClick={onClose}>
             Закрыть
           </Button>,
         ]}

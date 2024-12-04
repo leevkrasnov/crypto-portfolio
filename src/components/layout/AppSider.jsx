@@ -7,8 +7,8 @@ const { Sider } = Layout;
 const siderStyle = {
   textAlign: 'center',
   lineHeight: '120px',
-  marginLeft: '3rem',
-  marginTop: '3rem',
+  marginLeft: '2rem',
+  marginTop: '2rem',
   color: '#fff',
   backgroundColor: '#fafafa',
 };
@@ -16,8 +16,8 @@ const siderStyle = {
 export default function AppSider() {
   return (
     <Sider width="25%" style={siderStyle}>
-      <CryptoCarousel />
       <TotalProfit />
+      <CryptoCarousel />
     </Sider>
   );
 }

@@ -9,45 +9,70 @@ export default function CoinProfitModal() {
     return <Typography.Text>Нет данных для отображения</Typography.Text>;
   }
 
+  const groupedAssets = assets.reduce((acc, asset) => {
+    const profit =
+      asset.priceSell * asset.amountSell - asset.priceBuy * asset.amountBuy;
+    if (acc[asset.coin.name]) {
+      acc[asset.coin.name].totalProfit += profit;
+    } else {
+      acc[asset.coin.name] = {
+        ...asset,
+        totalProfit: profit,
+      };
+    }
+    return acc;
+  }, {});
+
+  const uniqueAssets = Object.values(groupedAssets);
+
   return (
-    <>
-      {assets.map((asset) => {
-        const profit =
-          asset.priceSell * asset.amountSell - asset.priceBuy * asset.amountBuy;
-        const isProfit = profit > 0;
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        gap: '2rem',
+        margin: '2rem 6rem',
+      }}
+    >
+      {uniqueAssets.map((asset) => {
+        const isProfit = asset.totalProfit > 0;
         return (
-          <Flex
-            vertical
-            align="center"
-            justify="center"
-            style={{ margin: '2rem' }}
+          <Card
             key={asset.coin.id}
+            style={{ width: '350px', marginBottom: '12px' }}
+            className="shadow"
           >
-            <Card style={{ marginBottom: '16px' }}>
-              <div
-                style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
-              >
-                <img
-                  src={asset.coin.image}
-                  alt={asset.coin.name}
-                  style={{ width: 40, height: 40 }}
-                />
-                <Typography.Title level={3} style={{ margin: 0 }}>
-                  {asset.coin.name}
-                </Typography.Title>
-              </div>
-              <Divider />
-              <Statistic
-                title="Прибыль / Убыток ($)"
-                value={profit.toFixed(2) + ' $'}
-                precision={2}
-                valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
-                prefix={isProfit ? <CaretUpOutlined /> : <CaretDownOutlined />}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '16px',
+              }}
+            >
+              <img
+                src={asset.coin.image}
+                alt={asset.coin.name}
+                style={{ width: 30, height: 30 }}
               />
-            </Card>
-          </Flex>
+              <Typography.Title level={3} style={{ margin: 0 }}>
+                {asset.coin.name}
+              </Typography.Title>
+            </div>
+
+            <Divider />
+
+            <Statistic
+              title="Прибыль / Убыток ($, все время)"
+              value={asset.totalProfit.toFixed(2) + ' $'}
+              precision={2}
+              valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
+              prefix={isProfit ? <CaretUpOutlined /> : <CaretDownOutlined />}
+            />
+          </Card>
         );
       })}
-    </>
+    </div>
   );
 }

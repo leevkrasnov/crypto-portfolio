@@ -25,7 +25,7 @@ export default function CryptoCarousel() {
 
   return (
     <>
-      <Carousel effect="fade" autoplay autoplaySpeed={7000} infinite={true}>
+      <Carousel effect="fade" autoplay autoplaySpeed={10000} infinite={true}>
         <CoinInfoCarousel coin={bitcoin} image="/bitcoin.svg" />
         <CoinInfoCarousel coin={ethereum} image="/ethereum.svg" />
         <CoinInfoCarousel coin={solana} image="/solana.svg" />

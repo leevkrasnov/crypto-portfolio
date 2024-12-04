@@ -45,8 +45,8 @@ body {
 .card {
   width: 360px;
   height: 220px;
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   border: 2px solid gray;
 }
 
@@ -63,4 +63,8 @@ body {
 
 .ant-carousel .slick-dots li.slick-active button {
   background: #1e90ff; /* Цвет активной точки */
+}
+
+.shadow {
+  box-shadow: 0 0 10px rgba(0, 128, 255, 0.5);
 }

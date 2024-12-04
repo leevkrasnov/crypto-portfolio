@@ -22,7 +22,12 @@ export default function CoinInfoCarousel({ coin, image }) {
           </Typography.Title>
         </Flex>
         <Divider />
-        <Flex style={{ justifyContent: 'space-between' }}>
+        <Flex
+          style={{
+            justifyContent: 'space-around',
+            width: '100%',
+          }}
+        >
           <Statistic
             style={{ marginRight: '3rem' }}
             title="Цена"

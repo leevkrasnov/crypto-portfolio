@@ -15,18 +15,26 @@ export default function MarketCapInfo({ btcMC, altMC }) {
           <img
             src="/miner.svg"
             alt="miner"
-            style={{ width: 40, marginRight: 10 }}
+            style={{ width: 30, marginRight: 10 }}
           />
           <Typography.Title level={2} style={{ margin: 0 }}>
             Market Cap
           </Typography.Title>
         </Flex>
         <Divider />
-        <Flex style={{ justifyContent: 'space-between' }}>
+        <Flex
+          style={{
+            justifyContent: 'space-around',
+            width: '100%',
+          }}
+        >
           <Statistic
             title="Bitcoin"
             value={btcMC}
             precision={2}
+            valueStyle={{
+              color: btcMC < 50 ? '#3f8600' : '#cf1322',
+            }}
             prefix={<PercentageOutlined />}
           />
 
@@ -34,6 +42,9 @@ export default function MarketCapInfo({ btcMC, altMC }) {
             title="Altcoins"
             value={altMC}
             precision={2}
+            valueStyle={{
+              color: altMC > 50 ? '#3f8600' : '#cf1322',
+            }}
             prefix={<PercentageOutlined />}
           />
         </Flex>

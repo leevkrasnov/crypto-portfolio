@@ -1,12 +1,15 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { fetchCryptoData, fetchMarketCapData, getExchangeRate } from '../api';
 import { notification } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
 
 const CryptoContext = createContext({
   cryptoData: [],
   assets: [],
   exchangeRate: null,
   loading: false,
+  addAsset: () => {},
+  removeAsset: () => {},
   openNotification: () => {},
   setSelectedAsset: () => {},
   fetchExchangeRate: () => {},
@@ -68,7 +71,14 @@ export function CryptoContextProvider({ children }) {
   }
 
   function addAsset(newAsset) {
-    setAssets((prevAsset) => [...prevAsset, newAsset]);
+    const assetWithId = { ...newAsset, id: uuidv4() };
+    setAssets((prevAssets) => [...prevAssets, assetWithId]);
+  }
+
+  function removeAsset(assetId) {
+    setAssets((prevAssets) =>
+      prevAssets.filter((asset) => asset.id !== assetId)
+    );
   }
 
   return (
@@ -79,6 +89,7 @@ export function CryptoContextProvider({ children }) {
         assets,
         exchangeRate,
         addAsset,
+        removeAsset,
         loading,
         isDataReady,
         hasError,

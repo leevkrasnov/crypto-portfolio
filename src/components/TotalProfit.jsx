@@ -20,7 +20,12 @@ export default function TotalProfit() {
   const { usd, rub } = calculateTotalProfit();
 
   return (
-    <Flex vertical align="center" justify="center" style={{ margin: '2rem' }}>
+    <Flex
+      vertical
+      align="center"
+      justify="center"
+      style={{ marginBottom: '2rem' }}
+    >
       <Card className="card">
         <Flex>
           <Typography.Title
