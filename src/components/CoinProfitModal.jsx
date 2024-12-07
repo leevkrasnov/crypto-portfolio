@@ -1,30 +1,15 @@
-import { Flex, Typography, Statistic, Divider, Card } from 'antd';
+import { Typography, Statistic, Divider, Card } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { useCrypto } from '../context/crypto-context';
+import { calculateMetrics } from '../utils/calculateMetrics';
 
 export default function CoinProfitModal() {
   const { assets } = useCrypto();
-  console.log(assets);
+  const metrics = calculateMetrics(assets);
 
   if (!assets || assets.length === 0) {
     return <Typography.Text>Нет данных для отображения</Typography.Text>;
   }
-
-  const groupedAssets = assets.reduce((acc, asset) => {
-    const profit =
-      asset.priceSell * asset.amountSell - asset.priceBuy * asset.amountBuy;
-    if (acc[asset.coin.name]) {
-      acc[asset.coin.name].totalProfit += profit;
-    } else {
-      acc[asset.coin.name] = {
-        ...asset,
-        totalProfit: profit,
-      };
-    }
-    return acc;
-  }, {});
-
-  const uniqueAssets = Object.values(groupedAssets);
 
   return (
     <div
@@ -37,7 +22,7 @@ export default function CoinProfitModal() {
         marginBottom: '200px',
       }}
     >
-      {uniqueAssets.map((asset) => {
+      {metrics.map((asset) => {
         const isProfit = asset.totalProfit > 0;
         return (
           <Card
@@ -65,12 +50,42 @@ export default function CoinProfitModal() {
 
             <Divider />
 
+            {/* Округляем только при отображении */}
             <Statistic
-              title="Прибыль / Убыток ($, все время)"
-              value={asset.totalProfit.toFixed(2) + ' $'}
+              title="Общий PnL ($)"
+              value={`${asset.totalProfit.toFixed(2)} $`}
               precision={2}
               valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
               prefix={isProfit ? <CaretUpOutlined /> : <CaretDownOutlined />}
+            />
+
+            <Statistic
+              title="Общий PnL (%)"
+              value={`${asset.totalPnLPercent.toFixed(2)} %`}
+              precision={2}
+              valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
+              style={{ marginTop: '12px' }}
+            />
+
+            <Statistic
+              title="Средняя цена покупки ($)"
+              value={`${asset.averageBuyPrice.toFixed(2)} $`}
+              precision={2}
+              style={{ marginTop: '12px' }}
+            />
+
+            <Statistic
+              title="Средняя цена продажи ($)"
+              value={`${asset.averageSellPrice.toFixed(2)} $`}
+              precision={2}
+              style={{ marginTop: '12px' }}
+            />
+
+            <Statistic
+              title="ROI (%)"
+              value={`${asset.roi.toFixed(2)} %`}
+              precision={2}
+              style={{ marginTop: '12px' }}
             />
           </Card>
         );

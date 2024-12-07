@@ -1,10 +1,13 @@
 import { Layout, Button, Modal, Drawer, Flex } from 'antd';
 import AddAssetForm from '../AddAssetForm';
 import CoinProfitModal from '../CoinProfitModal';
-import ButtonLogOut from '../ButtonLogOut';
-import { useModalState } from '../../hooks/useModalState';
+import { useModalState } from '../../utils/useModalState';
+import { useCrypto } from '../../context/crypto-context';
+import { LogoutOutlined } from '@ant-design/icons';
 
 export default function AppHeader() {
+  const { logout } = useCrypto();
+
   const {
     isOpen: isModalOpen,
     open: openModal,
@@ -19,10 +22,6 @@ export default function AppHeader() {
 
   return (
     <Layout.Header className="header">
-      <div className="header-buttons">
-        <ButtonLogOut />
-      </div>
-
       <div className="header-buttons">
         <Button className="button-primary" type="primary" onClick={openModal}>
           История
@@ -40,6 +39,10 @@ export default function AppHeader() {
         <Button className="button-primary" type="primary" onClick={openDrawer}>
           Добавить
         </Button>
+
+        <button className="button-logout" onClick={logout}>
+          <LogoutOutlined />
+        </button>
 
         <Drawer
           destroyOnClose

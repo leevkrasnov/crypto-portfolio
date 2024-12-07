@@ -22,10 +22,10 @@ export default function CryptoCarousel() {
   const altMC = cryptoMarketCap
     ? calculateAltcoinDominance(cryptoMarketCap.data.market_cap_percentage)
     : 0;
-
+  console.log(cryptoData);
   return (
     <>
-      <Carousel effect="fade" autoplay autoplaySpeed={10000} infinite={true}>
+      <Carousel effect="fade" autoplaySpeed={1000} infinite={true}>
         <CoinInfoCarousel coin={bitcoin} image="/bitcoin.svg" />
         <CoinInfoCarousel coin={ethereum} image="/ethereum.svg" />
         <CoinInfoCarousel coin={solana} image="/solana.svg" />

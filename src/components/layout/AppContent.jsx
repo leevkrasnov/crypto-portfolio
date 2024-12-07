@@ -1,11 +1,11 @@
 import { Layout } from 'antd';
 
-import AssetsTable from '../AssetsTable';
+import ChartRoi from '../ChartRoi';
 
 export default function AppContent() {
   return (
     <Layout.Content className="app-content">
-      <AssetsTable />
+      <ChartRoi />
     </Layout.Content>
   );
 }

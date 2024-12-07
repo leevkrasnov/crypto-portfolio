@@ -1,3 +1,5 @@
+import { cryptoSectors } from '../data/CryptoSectors';
+
 import {
   Select,
   Space,
@@ -21,10 +23,11 @@ const validateMessages = {
   },
 };
 
-export default function AddAssetForm({ onClose }) {
+export default function AddAssetForm() {
   const [form] = Form.useForm();
   const { cryptoData, addAsset } = useCrypto();
   const [coin, setCoin] = useState(null);
+  const [sector, setSector] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const assetRef = useRef();
 
@@ -61,7 +64,11 @@ export default function AddAssetForm({ onClose }) {
           </div>
         }
         extra={[
-          <Button key="closeButton" type="primary" onClick={onClose}>
+          <Button
+            key="closeButton"
+            type="primary"
+            onClick={() => window.location.reload()}
+          >
             Закрыть
           </Button>,
         ]}
@@ -97,6 +104,7 @@ export default function AddAssetForm({ onClose }) {
   async function onFinish(values) {
     const newAsset = {
       coin: coin,
+      sector: values.sector,
       priceBuy: values.priceBuy,
       amountBuy: values.amountBuy,
       priceSell: values.priceSell,
@@ -146,6 +154,19 @@ export default function AddAssetForm({ onClose }) {
       </Select>
 
       <Divider />
+      <Form.Item label="Сектор" name="sector" rules={[{ required: true }]}>
+        <Select placeholder="Выбрать">
+          {cryptoSectors.map((cryptoSection) => (
+            <Select.Option key={cryptoSection} value={cryptoSection}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              >
+                {cryptoSection}
+              </div>
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
 
       <Form.Item
         label="Дата покупки"

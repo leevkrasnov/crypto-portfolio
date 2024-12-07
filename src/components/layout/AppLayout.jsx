@@ -4,6 +4,7 @@ import AppContent from './AppContent';
 import { useContext } from 'react';
 import CryptoContext from '../../context/crypto-context';
 import AppSider from './AppSider';
+import AppFooter from './AppFooter';
 
 export default function AppLayout() {
   const { loading } = useContext(CryptoContext);
@@ -21,6 +22,7 @@ export default function AppLayout() {
         <AppSider />
         <AppContent />
       </Layout>
+      <AppFooter />
     </Layout>
   );
 }
