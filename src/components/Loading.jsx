@@ -11,7 +11,7 @@ export default function Loading() {
       }}
     >
       <DotLottieReact
-        src="./assets/animation/Animation.lottie"
+        src="./animation/Animation.lottie"
         loop
         autoplay
         style={{ height: '200px', width: '200px' }}
