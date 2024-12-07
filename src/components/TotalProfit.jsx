@@ -38,21 +38,13 @@ export default function TotalProfit() {
         </Flex>
         <Divider />
         <Flex>
-          <Typography.Title
-            level={4}
-            style={{ margin: 0 }}
-            className="monospace-text"
-          >
+          <Typography.Title level={3} style={{ margin: 0 }}>
             USD: {usd ? usd.toFixed(2) : 0} $
           </Typography.Title>
         </Flex>
         <br />
         <Flex>
-          <Typography.Title
-            level={4}
-            style={{ margin: 0 }}
-            className="monospace-text"
-          >
+          <Typography.Title level={3} style={{ margin: 0 }}>
             RUB: {rub ? rub.toFixed(2) : 0} ₽
           </Typography.Title>
         </Flex>

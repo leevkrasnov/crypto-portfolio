@@ -25,11 +25,11 @@ export default function CryptoCarousel() {
   console.log(cryptoData);
   return (
     <>
-      <Carousel effect="fade" autoplaySpeed={1000} infinite={true}>
+      <Carousel effect="fade" autoplay autoplaySpeed={8000} infinite={true}>
         <CoinInfoCarousel coin={bitcoin} image="/bitcoin.svg" />
         <CoinInfoCarousel coin={ethereum} image="/ethereum.svg" />
         <CoinInfoCarousel coin={solana} image="/solana.svg" />
-        <MarketCapInfo btcMC={btcMC} altMC={altMC} />
+        {/* <MarketCapInfo btcMC={btcMC} altMC={altMC} /> */}
       </Carousel>
     </>
   );

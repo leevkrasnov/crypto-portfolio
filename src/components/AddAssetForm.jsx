@@ -84,6 +84,7 @@ export default function AddAssetForm() {
         onChange={(id) => setCoin(cryptoData.find((c) => c.id === id))}
         placeholder="Выбери криптовалюту"
         optionLabelProp="label"
+        showSearch={true}
       >
         {cryptoData.map((coin) => (
           <Select.Option key={coin.id} value={coin.id}>

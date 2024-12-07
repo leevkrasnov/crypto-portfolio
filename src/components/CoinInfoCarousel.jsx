@@ -9,7 +9,7 @@ export default function CoinInfoCarousel({ coin, image }) {
   const isPriceGrowing = coin.price_change_percentage_24h > 0;
 
   return (
-    <Flex vertical align="center" justify="center">
+    <Flex vertical align="center">
       <Card className="card">
         <Flex>
           <img

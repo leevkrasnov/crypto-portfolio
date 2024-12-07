@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useCrypto } from '../context/crypto-context';
 import { Table, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -115,6 +116,11 @@ const getColumns = (removeAsset) => [
 
 export default function AssetsTable() {
   const { assets, removeAsset } = useCrypto();
+  const [tableOpen, setTableOpen] = useState(false);
+
+  const toggleTableVisibility = () => {
+    setTableOpen((prev) => !prev); // Переключение состояния
+  };
 
   const tableData = assets.map((asset) => ({
     key: asset.id,
@@ -134,12 +140,19 @@ export default function AssetsTable() {
   }));
 
   return (
-    <Table
-      pagination={false}
-      columns={getColumns(removeAsset)}
-      dataSource={tableData}
-      scroll={{ x: 600, y: 800 }}
-      className="table"
-    />
+    <div>
+      <button onClick={toggleTableVisibility} className="buttonOpenTable">
+        {tableOpen ? 'Скрыть таблицу' : 'Показать таблицу'}
+      </button>
+      {tableOpen && (
+        <Table
+          pagination={false}
+          columns={getColumns(removeAsset)}
+          dataSource={tableData}
+          scroll={{ x: 600, y: 800 }}
+          className="table"
+        />
+      )}
+    </div>
   );
 }

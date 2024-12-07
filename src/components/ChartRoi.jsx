@@ -31,10 +31,11 @@ export default function ChartRoi() {
         label: 'ROI (%)',
         data: metrics.map((asset) => asset.roi), // Значения ROI
         backgroundColor: metrics.map((asset) =>
-          asset.roi >= 0 ? 'rgba(75, 192, 192, 0.6)' : 'rgba(255, 99, 132, 0.6)'
+          asset.roi >= 0 ? '#6F58FF' : '#FFB740'
         ),
+        borderRadius: 16,
         borderColor: metrics.map((asset) =>
-          asset.roi >= 0 ? 'rgba(75, 192, 192, 1)' : 'rgba(255, 99, 132, 1)'
+          asset.roi >= 0 ? '#6F58FF' : '#FFB740'
         ),
         borderWidth: 1,
       },
@@ -58,6 +59,10 @@ export default function ChartRoi() {
       title: {
         display: true,
         text: 'ROI по активам',
+        font: {
+          size: 24,
+        },
+        color: '#292929',
       },
     },
     scales: {
@@ -69,12 +74,22 @@ export default function ChartRoi() {
           display: false,
           text: 'Активы',
         },
+        ticks: {
+          font: {
+            size: 14,
+          },
+        },
       },
       y: {
         grid: {
           display: false,
         },
         beginAtZero: true,
+        ticks: {
+          font: {
+            size: 14,
+          },
+        },
         title: {
           display: false,
           text: 'ROI (%)',

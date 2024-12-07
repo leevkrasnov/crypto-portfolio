@@ -1,17 +1,18 @@
-import { Layout, Spin } from 'antd';
+import { Layout } from 'antd';
 import AppHeader from './AppHeader';
 import AppContent from './AppContent';
 import { useContext } from 'react';
 import CryptoContext from '../../context/crypto-context';
 import AppSider from './AppSider';
 import AppFooter from './AppFooter';
+import Loading from '../Loading';
 
 export default function AppLayout() {
   const { loading } = useContext(CryptoContext);
 
   // Отображение спиннера при загрузке
   if (loading) {
-    return <Spin spinning fullscreen />;
+    return <Loading />;
   }
 
   // Основной макет приложения

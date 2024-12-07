@@ -1,4 +1,4 @@
-import { Layout, Button, Modal, Drawer, Flex } from 'antd';
+import { Layout, Button, Modal, Drawer } from 'antd';
 import AddAssetForm from '../AddAssetForm';
 import CoinProfitModal from '../CoinProfitModal';
 import { useModalState } from '../../utils/useModalState';
@@ -24,14 +24,14 @@ export default function AppHeader() {
     <Layout.Header className="header">
       <div className="header-buttons">
         <Button className="button-primary" type="primary" onClick={openModal}>
-          История
+          Сводка
         </Button>
         <Modal
           open={isModalOpen}
           onCancel={closeModal}
           footer={null}
-          width={1000}
-          style={{ height: '800px', overflow: 'auto' }}
+          width={1200}
+          className="modal"
         >
           <CoinProfitModal />
         </Modal>

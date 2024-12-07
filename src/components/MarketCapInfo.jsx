@@ -29,6 +29,7 @@ export default function MarketCapInfo({ btcMC, altMC }) {
           }}
         >
           <Statistic
+            style={{ marginRight: '3rem' }}
             title="Bitcoin"
             value={btcMC}
             precision={2}

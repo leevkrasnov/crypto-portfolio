@@ -4,7 +4,7 @@ import AssetsTable from '../AssetsTable';
 
 export default function AppFooter() {
   return (
-    <Layout.Content>
+    <Layout.Content className="app-footer">
       <AssetsTable />
     </Layout.Content>
   );

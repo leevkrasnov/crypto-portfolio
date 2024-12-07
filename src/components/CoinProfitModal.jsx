@@ -16,10 +16,9 @@ export default function CoinProfitModal() {
       style={{
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        gap: '2rem',
+        justifyContent: 'start',
+        gap: '3rem',
         margin: '2rem 6rem 8rem',
-        marginBottom: '200px',
       }}
     >
       {metrics.map((asset) => {
@@ -27,7 +26,7 @@ export default function CoinProfitModal() {
         return (
           <Card
             key={asset.coin.id}
-            style={{ width: '350px', marginBottom: '12px' }}
+            style={{ width: '460px', marginBottom: '12px' }}
             className="shadow"
           >
             <div
@@ -50,43 +49,51 @@ export default function CoinProfitModal() {
 
             <Divider />
 
-            {/* Округляем только при отображении */}
-            <Statistic
-              title="Общий PnL ($)"
-              value={`${asset.totalProfit.toFixed(2)} $`}
-              precision={2}
-              valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
-              prefix={isProfit ? <CaretUpOutlined /> : <CaretDownOutlined />}
-            />
+            <div className="profit-statistic">
+              <div
+                style={{
+                  flex: 1,
+                }}
+              >
+                <Statistic
+                  title="Общий PnL ($)"
+                  value={`${asset.totalProfit.toFixed(2)} $`}
+                  precision={2}
+                  valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
+                  prefix={
+                    isProfit ? <CaretUpOutlined /> : <CaretDownOutlined />
+                  }
+                />
 
-            <Statistic
-              title="Общий PnL (%)"
-              value={`${asset.totalPnLPercent.toFixed(2)} %`}
-              precision={2}
-              valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
-              style={{ marginTop: '12px' }}
-            />
+                <Statistic
+                  title="Общий PnL (%)"
+                  value={`${asset.totalPnLPercent.toFixed(2)} %`}
+                  precision={2}
+                  valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
+                  style={{ marginTop: '12px' }}
+                />
+                <Statistic
+                  title="ROI (%)"
+                  value={`${asset.roi.toFixed(2)} %`}
+                  precision={2}
+                  style={{ marginTop: '12px' }}
+                />
+              </div>
 
-            <Statistic
-              title="Средняя цена покупки ($)"
-              value={`${asset.averageBuyPrice.toFixed(2)} $`}
-              precision={2}
-              style={{ marginTop: '12px' }}
-            />
-
-            <Statistic
-              title="Средняя цена продажи ($)"
-              value={`${asset.averageSellPrice.toFixed(2)} $`}
-              precision={2}
-              style={{ marginTop: '12px' }}
-            />
-
-            <Statistic
-              title="ROI (%)"
-              value={`${asset.roi.toFixed(2)} %`}
-              precision={2}
-              style={{ marginTop: '12px' }}
-            />
+              <div style={{ flex: 1 }}>
+                <Statistic
+                  title="Средняя цена продажи ($)"
+                  value={`${asset.averageSellPrice.toFixed(2)} $`}
+                  precision={2}
+                />
+                <Statistic
+                  title="Средняя цена покупки ($)"
+                  value={`${asset.averageBuyPrice.toFixed(2)} $`}
+                  precision={2}
+                  style={{ marginTop: '12px' }}
+                />
+              </div>
+            </div>
           </Card>
         );
       })}
