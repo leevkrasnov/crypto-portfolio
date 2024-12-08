@@ -1,4 +1,4 @@
-import { cryptoSectors } from '../data/cryptoSectors.js';
+import { cryptoSectors } from '../data/cryptoSectors';
 import {
   Select,
   Space,
