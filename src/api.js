@@ -37,18 +37,12 @@ export async function fetchCryptoData() {
   return fetchData(API_URL);
 }
 
-// Функция для получения данных о рыночной капитализации
-export async function fetchMarketCapData() {
-  const API_URL = 'https://api.coingecko.com/api/v3/global';
-  return fetchData(API_URL);
-}
-
 // Функция для получения курса валют
 export async function getExchangeRate() {
   const API_URL = 'https://www.cbr.ru/scripts/XML_daily.asp';
 
   try {
-    const data = await fetchData(API_URL); // XML возвращается как строка
+    const data = await fetchData(API_URL);
     const parser = new DOMParser();
     const xml = parser.parseFromString(data, 'text/xml');
 

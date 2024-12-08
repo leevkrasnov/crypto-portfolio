@@ -27,7 +27,7 @@ export default function CoinProfitModal() {
           <Card
             key={asset.coin.id}
             style={{ width: '460px', marginBottom: '12px' }}
-            className="shadow"
+            className="card-profit-modal"
           >
             <div
               style={{
@@ -65,13 +65,6 @@ export default function CoinProfitModal() {
                   }
                 />
 
-                <Statistic
-                  title="Общий PnL (%)"
-                  value={`${asset.totalPnLPercent.toFixed(2)} %`}
-                  precision={2}
-                  valueStyle={{ color: isProfit ? '#3f8600' : '#cf1322' }}
-                  style={{ marginTop: '12px' }}
-                />
                 <Statistic
                   title="ROI (%)"
                   value={`${asset.roi.toFixed(2)} %`}

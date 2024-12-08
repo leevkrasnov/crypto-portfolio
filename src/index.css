@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------Fonts------------------------- */
 @font-face {
   font-family: 'Fira Code';
   src: url('./assets/fonts/FiraCode-Regular.ttf') format('truetype');
@@ -5,217 +10,121 @@
   font-style: normal;
 }
 
-.profit-statistic {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.monospace-text {
-  font-family: 'Fira Code', monospace;
-  -webkit-font-smoothing: antialiased;
-  font-smooth: always;
-}
-
+/* -------------------------Global------------------------- */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  @apply box-border m-0 p-0;
 }
 
 body {
-  background: #0f0f0f;
+  @apply bg-[#2b2b2b];
+}
+.monospace-text {
+  @apply font-mono antialiased;
 }
 
+/* -------------------------Layout------------------------- */
+.layout-container {
+  @apply bg-[#2b2b2b];
+}
+
+/* -------------------------Header------------------------- */
 .header {
-  width: 100%;
-  text-align: center;
-  height: 120px;
-  display: flex;
-  background: #2b2b2b;
-  justify-content: end;
-  /* gap: 1rem; */
-  padding: 2rem;
+  @apply w-full text-center h-[120px] flex justify-end bg-[#2b2b2b] p-8;
 }
 
+/* -------------------------Header Buttons------------------------- */
 .header-buttons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 16px;
+  @apply flex justify-end items-center gap-4;
 }
 
 .button-primary {
-  width: 180px;
-  height: 40px;
-  font-size: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  @apply w-[180px] h-[40px] text-[16px] shadow-lg rounded-lg;
 }
 
 .button-logout {
-  width: 70px;
-  height: 40px;
-  font-size: 16px;
-  color: white;
-  background: #1677ff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  @apply w-[70px] h-[40px] text-[16px] text-white bg-[#1677ff] border-none rounded-lg cursor-pointer flex items-center justify-center transition-colors duration-300 shadow-lg;
 }
 
-.buttonOpenTable {
-  width: 100%;
-  height: 40px;
-  font-size: 16px;
-  border-radius: 12px;
-  margin-bottom: 60px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  background: #4e4e4e;
-  color: #d0d0d0;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: 0px;
-}
-
-.buttonOpenTable:hover {
-  background-color: #777777;
-  transform: scale(1.01);
-}
-
-.shadow {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-  border-radius: 20px;
-  background: #eeeeee;
-  border: 1px solid #eeeeee;
-}
 .button-logout:hover {
-  background: #b22222;
+  @apply bg-[#b22222];
 }
 
-.layout-container {
-  background: #2b2b2b;
+/* -------------------------Header Modal------------------------- */
+.profit-statistic {
+  @apply flex justify-between gap-8 items-start;
 }
 
-.app-content {
-  text-align: center;
-  line-height: 1.5;
-  margin-right: 2rem;
-  margin-left: 2rem;
-  background: #dddddd;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.table-bold {
-  font-weight: bold;
-}
-
-.table-profit-positive {
-  color: green;
-}
-
-.table-profit-negative {
-  color: red;
-}
-.app-footer {
-  border-radius: 20px;
-  background: #2b2b2b;
-  margin: 6rem 2rem 2rem;
-}
-.app-sider {
-  text-align: center;
-  margin-left: 2rem;
-  background: #2b2b2b;
-  border-radius: 8px;
-}
-
-@keyframes blackWhiteGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.black-white-text {
-  background: linear-gradient(90deg, #5342bf, #6f58ff, #3c73bf);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: blackWhiteGradient 10s ease infinite;
+.card-profit-modal {
+  @apply shadow-lg rounded-3xl bg-[#eeeeee] border border-[#eeeeee];
 }
 
 .modal .ant-modal-content {
-  background: linear-gradient(90deg, #2b2b2b, #4d4d4d);
-  background-size: 200% 200%;
-  animation: gradientAnimation 5s ease infinite;
-
-  border-radius: 40px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
+  @apply bg-gradient-to-r from-[#2b2b2b] to-[#4d4d4d] bg-[200\\%] rounded-2xl shadow-lg overflow-hidden;
 }
 
-.gradient-background {
-  background: linear-gradient(90deg, #9a7ed9, #4d4d4d);
-  background-size: 200% 200%;
-  animation: gradientAnimation 5s ease infinite;
+/* -------------------------Sider------------------------- */
+.app-sider {
+  @apply bg-[#2b2b2b] rounded-md ml-8;
 }
 
-/* Анимация движения градиента */
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.modal .ant-modal-close {
-  top: 20px; /* Положение сверху */
-  right: 30px; /* Положение справа */
-}
-
-.modal .ant-modal-body {
-  overflow-y: scroll;
-  scrollbar-width: none;
-  overflow: hidden;
-}
-
-.modal .ant-modal-body::-webkit-scrollbar {
-  display: none; /* Для Chrome, Safari и Edge */
-}
-
+/* -------------------------Sider Cards ------------------------- */
 .card {
-  width: 350px;
-  height: 220px;
-  border: 1px solid #eeeeee;
-  border-radius: 20px;
-  background: #eeeeee;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.table {
-  border-radius: 20px; /* Закругление углов */
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  @apply w-[350px] h-[220px] border border-[#eeeeee] rounded-2xl bg-[#eeeeee] shadow-lg;
 }
 
 .ant-carousel .slick-dots li button {
-  background: #000000; /* Цвет неактивных точек */
+  @apply bg-black;
+}
+.ant-carousel .slick-dots li.slick-active button {
+  @apply bg-[#999999];
 }
 
-.ant-carousel .slick-dots li.slick-active button {
-  background: #999999; /* Цвет активной точки */
+/* -------------------------Content------------------------- */
+.app-content {
+  @apply text-center leading-6 mx-8 bg-[#dddddd] rounded-3xl shadow-lg;
+}
+
+/* -------------------------Content Button------------------------- */
+.buttonOpenTable {
+  @apply w-full h-[40px] text-[30px] mb-[60px] rounded-xl shadow-lg bg-[#4e4e4e] text-[#d0d0d0] transition-transform duration-300;
+}
+
+.buttonOpenTable:hover {
+  @apply bg-[#777777] scale-[1.01];
+}
+
+/* -------------------------Content Table------------------------- */
+.table-container {
+  @apply overflow-auto w-full rounded-3xl border border-[#2b2b2b] mb-20;
+
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.table {
+  @apply rounded-3xl overflow-hidden shadow-lg;
+}
+
+.table-bold {
+  @apply font-bold;
+}
+
+.table-italic {
+  @apply italic;
+}
+
+.table-profit-positive {
+  @apply text-green-500;
+}
+
+.table-profit-negative {
+  @apply text-red-500;
+}
+
+/* -------------------------Footer------------------------- */
+.app-footer {
+  @apply rounded-2xl bg-[#2b2b2b] mt-24 mx-8;
 }

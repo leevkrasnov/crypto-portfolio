@@ -10,6 +10,7 @@ import {
 } from 'chart.js';
 import { calculateMetrics } from '../utils/calculateMetrics';
 import { useCrypto } from '../context/crypto-context';
+import Annotation from 'chartjs-plugin-annotation';
 
 ChartJS.register(
   CategoryScale,
@@ -17,7 +18,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Annotation
 );
 
 export default function ChartRoi() {
@@ -33,7 +35,7 @@ export default function ChartRoi() {
         backgroundColor: metrics.map((asset) =>
           asset.roi >= 0 ? '#6F58FF' : '#FFB740'
         ),
-        borderRadius: 16,
+        borderRadius: 8,
         borderColor: metrics.map((asset) =>
           asset.roi >= 0 ? '#6F58FF' : '#FFB740'
         ),
@@ -57,12 +59,34 @@ export default function ChartRoi() {
         },
       },
       title: {
-        display: true,
+        display: false,
         text: 'ROI по активам',
         font: {
           size: 24,
         },
         color: '#292929',
+        padding: {
+          bottom: 30,
+        },
+      },
+      annotation: {
+        annotations: {
+          line0: {
+            type: 'line',
+            yMin: 0,
+            yMax: 0,
+            borderColor: 'grey',
+            borderWidth: 0.5,
+            label: {
+              enabled: false,
+              content: 'Y = 0',
+              position: 'start',
+              font: {
+                size: 12,
+              },
+            },
+          },
+        },
       },
     },
     scales: {
@@ -75,6 +99,7 @@ export default function ChartRoi() {
           text: 'Активы',
         },
         ticks: {
+          display: false,
           font: {
             size: 14,
           },
@@ -101,8 +126,10 @@ export default function ChartRoi() {
   return (
     <div
       style={{
-        maxWidth: '800px',
-        margin: '2rem auto',
+        width: '65%',
+        height: '400px',
+        marginTop: '4rem',
+        marginLeft: '1rem',
       }}
     >
       <Bar data={chartData} options={chartOptions} />

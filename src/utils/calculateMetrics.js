@@ -1,3 +1,8 @@
+export const calculatedAmountBuy = (totalBuy, priceBuy) =>
+  (totalBuy / priceBuy).toFixed(10);
+export const calculatedAmountSell = (totalSell, priceSell) =>
+  (totalSell / priceSell).toFixed(10);
+
 export const calculatePurchaseSum = (asset) => asset.priceBuy * asset.amountBuy;
 
 export const calculateSaleSum = (asset) => asset.priceSell * asset.amountSell;
@@ -48,6 +53,7 @@ export const calculateMetrics = (assets) => {
         totalSellSum: asset.priceSell * asset.amountSell,
         totalBuyAmount: asset.amountBuy,
         totalSellAmount: asset.amountSell,
+        sector: asset.sector,
       };
     }
     return acc;

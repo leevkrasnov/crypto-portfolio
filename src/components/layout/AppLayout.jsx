@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import CryptoContext from '../../context/crypto-context';
 import AppSider from './AppSider';
 import AppFooter from './AppFooter';
-import Loading from '../Loading';
+import Loading from '../animations/Loading';
 
 export default function AppLayout() {
   const { loading } = useContext(CryptoContext);

@@ -47,11 +47,13 @@ export default function AppHeader() {
         <Drawer
           destroyOnClose
           title="Добавить операцию"
-          width={600}
+          width={800}
           onClose={closeDrawer}
           open={isDrawerOpen}
         >
-          <AddAssetForm onClose={closeDrawer} />
+          <div className="drawer-body">
+            <AddAssetForm onClose={closeDrawer} />
+          </div>
         </Drawer>
       </div>
     </Layout.Header>

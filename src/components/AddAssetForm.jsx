@@ -1,5 +1,4 @@
-import { cryptoSectors } from '../data/CryptoSectors';
-
+import { cryptoSectors } from '../data/cryptoSectors.js';
 import {
   Select,
   Space,
@@ -10,67 +9,57 @@ import {
   DatePicker,
   Result,
 } from 'antd';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useCrypto } from '../context/crypto-context';
-
-const validateMessages = {
-  required: '',
-  types: {
-    number: '${label} должно быть числом!',
-  },
-  number: {
-    range: '${label} должно быть больше 0!',
-  },
-};
+import { validateMessages } from '../data/validateMesseges.js';
+import Done from './animations/Done.jsx';
 
 export default function AddAssetForm() {
   const [form] = Form.useForm();
   const { cryptoData, addAsset } = useCrypto();
   const [coin, setCoin] = useState(null);
-  const [sector, setSector] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const assetRef = useRef();
 
   if (submitted && coin) {
     return (
       <Result
-        status="success"
-        title={coin.name}
-        subTitle={
-          <div style={{}}>
-            Стоимость покупки:{' '}
-            <b>
-              {
-                +(
-                  assetRef.current.priceBuy * assetRef.current.amountBuy
-                ).toFixed(3)
-              }
-            </b>{' '}
-            <br />
-            Дата покупки:{' '}
-            <b>{assetRef.current.purchaseDate?.toLocaleDateString()}</b> <br />
-            <br />
-            Стоимость продажи:{' '}
-            <b>
-              {
-                +(
-                  assetRef.current.priceSell * assetRef.current.amountSell
-                ).toFixed(3)
-              }
-            </b>{' '}
-            <br />
-            Дата продажи:{' '}
-            <b>{assetRef.current.saleDate?.toLocaleDateString()}</b>
+        icon={<Done />}
+        title={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+            }}
+          >
+            <img
+              src={coin.image}
+              alt={coin.name}
+              style={{ width: 40, height: 40 }}
+            />
+            <span style={{ fontSize: '30px' }}>
+              {coin.name} успешно добавлен!
+            </span>
           </div>
         }
         extra={[
-          <Button
-            key="closeButton"
-            type="primary"
-            onClick={() => window.location.reload()}
-          >
-            Закрыть
-          </Button>,
+          <div>
+            <Divider />
+            <Button
+              style={{
+                marginTop: '30px',
+                fontSize: '16px',
+                padding: '18px',
+                borderRadius: '16px',
+              }}
+              key="closeButton"
+              type="primary"
+              onClick={() => window.location.reload()}
+            >
+              Закрыть
+            </Button>
+          </div>,
         ]}
       />
     );
@@ -116,7 +105,7 @@ export default function AddAssetForm() {
 
     try {
       addAsset(newAsset);
-      assetRef.current = newAsset;
+
       setSubmitted(true);
     } catch (error) {
       console.error('Ошибка добавления актива:', error);
@@ -134,7 +123,7 @@ export default function AddAssetForm() {
       validateMessages={validateMessages}
     >
       <Select
-        style={{ width: '100%' }}
+        style={{ width: '100%', height: '40px' }}
         value={coin?.id || undefined}
         onChange={(id) => setCoin(cryptoData.find((c) => c.id === id))}
         placeholder="Выбери криптовалюту"
@@ -176,11 +165,14 @@ export default function AddAssetForm() {
       >
         <DatePicker placeholder="Выбрать" style={{ width: '100%' }} />
       </Form.Item>
-      <Form.Item label="Стоимость" name="priceBuy" rules={[{ required: true }]}>
+      <Form.Item
+        label="Стоимость актива"
+        name="priceBuy"
+        rules={[{ required: true }]}
+      >
         <InputNumber style={{ width: '100%' }} />
       </Form.Item>
       <Form.Item
-        help={null}
         label="Количество"
         name="amountBuy"
         rules={[{ required: true }]}
@@ -216,7 +208,6 @@ export default function AddAssetForm() {
         <InputNumber style={{ width: '100%' }} />
       </Form.Item>
       <Form.Item
-        help={null}
         label="Количество"
         name="amountSell"
         rules={[{ required: true }]}

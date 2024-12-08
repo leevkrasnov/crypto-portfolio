@@ -1,5 +1,6 @@
 import { Flex, Typography, Divider, Card } from 'antd';
 import { useCrypto } from '../context/crypto-context';
+import Shiba from './animations/Shiba';
 
 export default function TotalProfit() {
   const { exchangeRate, assets } = useCrypto();
@@ -22,7 +23,7 @@ export default function TotalProfit() {
   return (
     <Flex
       vertical
-      align="center"
+      align="start"
       justify="center"
       style={{ marginBottom: '2rem' }}
     >
@@ -31,22 +32,23 @@ export default function TotalProfit() {
           <Typography.Title
             level={2}
             style={{ margin: 0 }}
-            className="black-white-text"
+            className="gradient-text"
           >
             Общая прибыль:
           </Typography.Title>
         </Flex>
         <Divider />
-        <Flex>
-          <Typography.Title level={3} style={{ margin: 0 }}>
-            USD: {usd ? usd.toFixed(2) : 0} $
-          </Typography.Title>
-        </Flex>
-        <br />
-        <Flex>
-          <Typography.Title level={3} style={{ margin: 0 }}>
-            RUB: {rub ? rub.toFixed(2) : 0} ₽
-          </Typography.Title>
+        <Flex align="start" justify="space-between" style={{ width: '100%' }}>
+          <div>
+            <Typography.Title level={3} style={{ margin: 0 }}>
+              USD: {usd ? usd.toFixed(2) : 0} $
+            </Typography.Title>
+            <br />
+            <Typography.Title level={3} style={{ margin: 0 }}>
+              RUB: {rub ? rub.toFixed(2) : 0} ₽
+            </Typography.Title>
+          </div>
+          <Shiba />
         </Flex>
       </Card>
     </Flex>

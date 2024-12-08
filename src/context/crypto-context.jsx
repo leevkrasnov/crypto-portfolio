@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { fetchCryptoData, fetchMarketCapData, getExchangeRate } from '../api';
+import { fetchCryptoData, getExchangeRate } from '../api';
 import { notification } from 'antd';
 import { supabase } from '../../supabase';
+import { demoAssets } from '../data/demoAssets';
 
 const CryptoContext = createContext({
   cryptoData: [],
@@ -24,7 +25,6 @@ export function CryptoContextProvider({ children }) {
   const [cryptoData, setCryptoData] = useState([]);
   const [exchangeRate, setExchangeRate] = useState(null);
   const [assets, setAssets] = useState([]);
-  const [cryptoMarketCap, setCryptoMarketCap] = useState({});
   const [hasError, setHasError] = useState(false);
   const [isDataReady, setIsDataReady] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -81,45 +81,11 @@ export function CryptoContextProvider({ children }) {
         setIsDataReady(false);
 
         try {
-          const [cryptoData, marketCapData] = await Promise.all([
-            fetchCryptoData(),
-            fetchMarketCapData(),
-          ]);
+          const [cryptoData] = await Promise.all([fetchCryptoData()]);
 
           setCryptoData(cryptoData);
-          setCryptoMarketCap(marketCapData);
 
           if (demoStatus) {
-            const demoAssets = [
-              {
-                id: '1',
-                coin: {
-                  name: 'Bitcoin',
-                  current_price: 30000,
-                  image: '/bitcoin.svg',
-                },
-                amountBuy: 10,
-                amountSell: 10,
-                priceBuy: 65000,
-                priceSell: 66000,
-                purchaseDate: new Date(),
-                saleDate: new Date(),
-              },
-              {
-                id: '2',
-                coin: {
-                  name: 'Ethereum',
-                  current_price: 2500,
-                  image: '/ethereum.svg',
-                },
-                amountBuy: 10,
-                amountSell: 10,
-                priceBuy: 2300,
-                priceSell: 2500,
-                purchaseDate: new Date(),
-                saleDate: new Date(),
-              },
-            ];
             setAssets(demoAssets);
           } else {
             const { data: supabaseAssets, error } = await supabase
@@ -197,7 +163,6 @@ export function CryptoContextProvider({ children }) {
     <CryptoContext.Provider
       value={{
         cryptoData,
-        cryptoMarketCap,
         assets,
         exchangeRate,
         addAsset,

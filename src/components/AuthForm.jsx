@@ -18,7 +18,9 @@ export default function AuthForm() {
 
   return (
     <div style={{ textAlign: 'center', marginTop: '20%' }}>
-      <Typography.Title level={1}>Ходлер, да?</Typography.Title>
+      <Typography.Title style={{ color: '#DCDCDC' }} level={1}>
+        Ходлер, да?
+      </Typography.Title>
       <Form
         name="login"
         style={{
@@ -53,7 +55,6 @@ export default function AuthForm() {
             style={{ height: '30px', marginTop: '10px', fontSize: '14px' }}
             block
             type="primary"
-            // htmlType="submit"
             onClick={handleDemoMode}
           >
             Демо-режим

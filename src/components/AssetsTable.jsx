@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useCrypto } from '../context/crypto-context';
 import { Table, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  CaretUpOutlined,
+  CaretDownOutlined,
+} from '@ant-design/icons';
 import {
   calculatePurchaseSum,
   calculateSaleSum,
@@ -18,6 +22,13 @@ const getColumns = (removeAsset) => [
     dataIndex: 'name',
     sorter: (a, b) => a.name.localeCompare(b.name),
     render: (value) => <span className="table-bold">{value}</span>,
+  },
+  {
+    title: 'Сектор',
+    width: 120,
+    dataIndex: 'sector',
+    sorter: (a, b) => a.sector.localeCompare(b.sector),
+    render: (value) => <span className="table-italic">{value}</span>,
   },
   {
     title: 'Дата покупки',
@@ -81,12 +92,6 @@ const getColumns = (removeAsset) => [
     ),
   },
   {
-    title: 'PnL, %',
-    width: 120,
-    dataIndex: 'percentChange',
-    render: (value) => `${value}%`,
-  },
-  {
     title: 'ROI',
     width: 120,
     dataIndex: 'roi',
@@ -96,6 +101,7 @@ const getColumns = (removeAsset) => [
     title: 'Время удержания',
     width: 160,
     dataIndex: 'holdingTime',
+    render: (value) => `${value} дней`,
   },
 
   {
@@ -119,13 +125,14 @@ export default function AssetsTable() {
   const [tableOpen, setTableOpen] = useState(false);
 
   const toggleTableVisibility = () => {
-    setTableOpen((prev) => !prev); // Переключение состояния
+    setTableOpen((prev) => !prev);
   };
 
   const tableData = assets.map((asset) => ({
     key: asset.id,
     id: asset.id,
     name: asset.coin.name,
+    sector: asset.sector,
     purchaseDate: asset.purchaseDate,
     priceBuy: asset.priceBuy,
     amountBuy: asset.amountBuy,
@@ -142,16 +149,18 @@ export default function AssetsTable() {
   return (
     <div>
       <button onClick={toggleTableVisibility} className="buttonOpenTable">
-        {tableOpen ? 'Скрыть таблицу' : 'Показать таблицу'}
+        {tableOpen ? <CaretUpOutlined /> : <CaretDownOutlined />}
       </button>
       {tableOpen && (
-        <Table
-          pagination={false}
-          columns={getColumns(removeAsset)}
-          dataSource={tableData}
-          scroll={{ x: 600, y: 800 }}
-          className="table"
-        />
+        <div className="table-container">
+          <Table
+            pagination={false}
+            columns={getColumns(removeAsset)}
+            dataSource={tableData}
+            scroll={{ x: 400, y: 600 }}
+            className="table"
+          />
+        </div>
       )}
     </div>
   );

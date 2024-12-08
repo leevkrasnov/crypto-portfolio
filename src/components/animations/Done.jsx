@@ -1,17 +1,16 @@
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
-export default function Loading() {
+export default function Done() {
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh', // Высота области для центрирования
       }}
     >
       <DotLottieReact
-        src="./animation/Animation.lottie"
+        src="./animation/Done.lottie"
         loop
         autoplay
         style={{ height: '200px', width: '200px' }}
