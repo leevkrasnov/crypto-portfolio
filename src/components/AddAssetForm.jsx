@@ -1,4 +1,4 @@
-import { cryptoSectors } from '../data/cryptoSectors.js';
+import { cryptoSectors } from '../datas/cryptoSectors.js';
 import {
   Select,
   Space,
@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import { useState } from 'react';
 import { useCrypto } from '../context/crypto-context';
-import { validateMessages } from '../data/validateMesseges.js';
+import { validateMessages } from '../datas/validateMesseges.js';
 import Done from './animations/Done.jsx';
 
 export default function AddAssetForm() {

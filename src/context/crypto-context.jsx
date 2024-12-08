@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { fetchCryptoData, getExchangeRate } from '../api';
 import { notification } from 'antd';
 import { supabase } from '../../supabase';
-import { demoAssets } from '../data/demoAssets';
+import { demoAssets } from '../datas/demoAssets';
 
 const CryptoContext = createContext({
   cryptoData: [],
