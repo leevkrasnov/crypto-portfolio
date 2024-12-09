@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 /* -------------------------Fonts------------------------- */
+
 @font-face {
-  font-family: 'Fira Code';
-  src: url('./assets/fonts/FiraCode-Regular.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Nunito Sans';
+  src: url('./assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
+    format('truetype');
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -29,16 +31,42 @@ body {
 
 /* -------------------------Header------------------------- */
 .header {
-  @apply w-full text-center h-[120px] flex justify-end bg-[#2b2b2b] p-8;
+  @apply w-full text-center h-[120px] flex justify-end bg-[#9FB3A2] p-8;
 }
 
 /* -------------------------Header Buttons------------------------- */
 .header-buttons {
-  @apply flex justify-end items-center gap-4;
+  @apply flex justify-end items-center gap-2;
 }
 
-.button-primary {
-  @apply w-[180px] h-[40px] text-[16px] shadow-lg rounded-lg;
+.button-container {
+  @apply flex items-center font-nunito;
+}
+
+.button-flip {
+  @apply bg-transparent block relative overflow-hidden text-lg text-gray-900 min-w-32 min-h-6 border-none cursor-pointer transition-colors duration-300;
+}
+
+.button-flip:after,
+.button-flip:before {
+  content: attr(data-hover-text);
+  @apply absolute inset-0 flex items-center justify-end transition-transform duration-700 ease-in-out;
+}
+
+.button-flip:before {
+  @apply translate-y-0;
+}
+
+.button-flip:after {
+  @apply translate-y-full;
+}
+
+.button-flip:hover:before {
+  @apply -translate-y-full;
+}
+
+.button-flip:hover:after {
+  @apply translate-y-0 text-purple-700;
 }
 
 .button-logout {

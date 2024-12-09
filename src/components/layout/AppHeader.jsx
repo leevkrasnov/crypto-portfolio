@@ -22,10 +22,12 @@ export default function AppHeader() {
 
   return (
     <Layout.Header className="header">
-      <div className="header-buttons">
-        <Button className="button-primary" type="primary" onClick={openModal}>
-          Сводка
-        </Button>
+      <div className="button-container">
+        <button
+          class="button-flip"
+          data-hover-text="СВОДКА"
+          onClick={openModal}
+        ></button>
         <Modal
           open={isModalOpen}
           onCancel={closeModal}
@@ -35,14 +37,19 @@ export default function AppHeader() {
         >
           <CoinProfitModal />
         </Modal>
+        <div class="button-container">
+          <button
+            class="button-flip"
+            data-hover-text="ДОБАВИТЬ"
+            onClick={openDrawer}
+          ></button>
+        </div>
 
-        <Button className="button-primary" type="primary" onClick={openDrawer}>
-          Добавить
-        </Button>
-
-        <button className="button-logout" onClick={logout}>
-          <LogoutOutlined />
-        </button>
+        <button
+          class="button-flip ml-6"
+          data-hover-text="ВЫХОД"
+          onClick={logout}
+        ></button>
 
         <Drawer
           destroyOnClose
