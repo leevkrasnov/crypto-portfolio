@@ -1,3 +1,16 @@
+export const calculateTotalProfit = ({ exchangeRate, assets }) => {
+  const totalProfitUSD = assets.reduce((total, asset) => {
+    const profit =
+      asset.priceSell * asset.amountSell - asset.priceBuy * asset.amountBuy;
+    return total + profit;
+  }, 0);
+
+  return {
+    usd: totalProfitUSD,
+    rub: exchangeRate ? totalProfitUSD * exchangeRate : null,
+  };
+};
+
 export const calculatedAmountBuy = (totalBuy, priceBuy) =>
   (totalBuy / priceBuy).toFixed(10);
 export const calculatedAmountSell = (totalSell, priceSell) =>

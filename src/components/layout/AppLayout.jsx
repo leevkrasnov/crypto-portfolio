@@ -1,10 +1,9 @@
-import { Layout } from 'antd';
+// import { Layout } from 'antd';
 import AppHeader from './AppHeader';
 import AppContent from './AppContent';
 import { useContext } from 'react';
 import CryptoContext from '../../context/crypto-context';
-import AppSider from './AppSider';
-import AppFooter from './AppFooter';
+
 import Loading from '../animations/Loading';
 
 export default function AppLayout() {
@@ -17,13 +16,9 @@ export default function AppLayout() {
 
   // Основной макет приложения
   return (
-    <Layout className="layout-container">
+    <>
       <AppHeader />
-      <Layout className="layout-container">
-        <AppSider />
-        <AppContent />
-      </Layout>
-      <AppFooter />
-    </Layout>
+      <AppContent />
+    </>
   );
 }

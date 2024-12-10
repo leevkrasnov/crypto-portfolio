@@ -1,9 +1,8 @@
-import { Layout, Button, Modal, Drawer } from 'antd';
+import { Layout, Modal, Drawer } from 'antd';
 import AddAssetForm from '../AddAssetForm';
 import CoinProfitModal from '../CoinProfitModal';
 import { useModalState } from '../../utils/useModalState';
 import { useCrypto } from '../../context/crypto-context';
-import { LogoutOutlined } from '@ant-design/icons';
 
 export default function AppHeader() {
   const { logout } = useCrypto();
@@ -21,7 +20,10 @@ export default function AppHeader() {
   } = useModalState();
 
   return (
-    <Layout.Header className="header">
+    <header className="header">
+      <div className="button-container">
+        <h2 className="text-2xl font-nunito antialiased">COINBOOK</h2>
+      </div>
       <div className="button-container">
         <button
           class="button-flip"
@@ -37,16 +39,14 @@ export default function AppHeader() {
         >
           <CoinProfitModal />
         </Modal>
-        <div class="button-container">
-          <button
-            class="button-flip"
-            data-hover-text="ДОБАВИТЬ"
-            onClick={openDrawer}
-          ></button>
-        </div>
+        <button
+          class="button-flip"
+          data-hover-text="ДОБАВИТЬ"
+          onClick={openDrawer}
+        ></button>
 
         <button
-          class="button-flip ml-6"
+          class="button-flip"
           data-hover-text="ВЫХОД"
           onClick={logout}
         ></button>
@@ -58,11 +58,11 @@ export default function AppHeader() {
           onClose={closeDrawer}
           open={isDrawerOpen}
         >
-          <div className="drawer-body">
+          <section className="drawer-body">
             <AddAssetForm onClose={closeDrawer} />
-          </div>
+          </section>
         </Drawer>
       </div>
-    </Layout.Header>
+    </header>
   );
 }

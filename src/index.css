@@ -8,43 +8,37 @@
   font-family: 'Nunito Sans';
   src: url('./assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
     format('truetype');
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
 }
 
 /* -------------------------Global------------------------- */
 * {
-  @apply box-border m-0 p-0;
+  @apply box-border m-0 p-0 font-nunito antialiased;
 }
 
 body {
   @apply bg-[#2b2b2b];
 }
-.monospace-text {
-  @apply font-mono antialiased;
-}
 
 /* -------------------------Layout------------------------- */
 .layout-container {
-  @apply bg-[#2b2b2b];
+  @apply bg-[#9FB3A2];
 }
 
 /* -------------------------Header------------------------- */
 .header {
-  @apply w-full text-center h-[120px] flex justify-end bg-[#9FB3A2] p-8;
+  @apply flex w-full items-center h-24 justify-between bg-[#9FB3A2] px-20;
 }
 
 /* -------------------------Header Buttons------------------------- */
-.header-buttons {
-  @apply flex justify-end items-center gap-2;
-}
 
 .button-container {
-  @apply flex items-center font-nunito;
+  @apply flex items-center text-gray-900 gap-2;
 }
 
 .button-flip {
-  @apply bg-transparent block relative overflow-hidden text-lg text-gray-900 min-w-32 min-h-6 border-none cursor-pointer transition-colors duration-300;
+  @apply bg-transparent block relative overflow-hidden text-lg min-w-32 min-h-6 border-none cursor-pointer transition-colors duration-300;
 }
 
 .button-flip:after,
@@ -69,14 +63,6 @@ body {
   @apply translate-y-0 text-purple-700;
 }
 
-.button-logout {
-  @apply w-[70px] h-[40px] text-[16px] text-white bg-[#1677ff] border-none rounded-lg cursor-pointer flex items-center justify-center transition-colors duration-300 shadow-lg;
-}
-
-.button-logout:hover {
-  @apply bg-[#b22222];
-}
-
 /* -------------------------Header Modal------------------------- */
 .profit-statistic {
   @apply flex justify-between gap-8 items-start;
@@ -90,26 +76,29 @@ body {
   @apply bg-gradient-to-r from-[#2b2b2b] to-[#4d4d4d] bg-[200\\%] rounded-2xl shadow-lg overflow-hidden;
 }
 
-/* -------------------------Sider------------------------- */
-.app-sider {
-  @apply bg-[#2b2b2b] rounded-md ml-8;
-}
-
-/* -------------------------Sider Cards ------------------------- */
-.card {
-  @apply w-[350px] h-[220px] border border-[#eeeeee] rounded-2xl bg-[#eeeeee] shadow-lg;
-}
-
-.ant-carousel .slick-dots li button {
-  @apply bg-black;
-}
-.ant-carousel .slick-dots li.slick-active button {
-  @apply bg-[#999999];
-}
-
 /* -------------------------Content------------------------- */
 .app-content {
-  @apply text-center leading-6 mx-8 bg-[#dddddd] rounded-3xl shadow-lg;
+  @apply flex flex-col bg-[#9FB3A2] h-screen;
+}
+
+.app-top-content {
+  @apply flex items-end min-h-[200px] pb-10;
+}
+
+.marque-container {
+  @apply overflow-hidden whitespace-nowrap w-[200px] relative;
+}
+
+.marque-text {
+  @apply text-purple-700 text-2xl animate-marquee flex gap-48;
+}
+
+.app-mid-content {
+  @apply flex flex-col flex-1 px-20 py-4 bg-[#2C372E];
+}
+
+.card-container {
+  @apply w-[350px] h-52 px-1 border border-gray-300 bg-gray-300 rounded-none ml-6;
 }
 
 /* -------------------------Content Button------------------------- */
