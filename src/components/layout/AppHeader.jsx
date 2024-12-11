@@ -1,6 +1,6 @@
 import { Modal, Drawer } from 'antd';
 import AddAssetForm from '../AddAssetForm';
-import CoinProfitModal from '../CoinProfitModal';
+import CoinInfoModal from '../CoinInfoModal';
 import { useModalState } from '../../utils/useModalState';
 import { useCrypto } from '../../context/crypto-context';
 
@@ -26,7 +26,7 @@ export default function AppHeader({ headerRef }) {
       </div>
       <div className="button-container">
         <button
-          className="button-flip"
+          className="button-flip text-lg"
           data-hover-text="СВОДКА"
           onClick={openModal}
         ></button>
@@ -34,29 +34,32 @@ export default function AppHeader({ headerRef }) {
           open={isModalOpen}
           onCancel={closeModal}
           footer={null}
-          width={1200}
+          width={1300}
           className="modal"
         >
-          <CoinProfitModal />
+          <CoinInfoModal />
         </Modal>
         <button
-          className="button-flip"
+          className="button-flip text-lg"
           data-hover-text="ДОБАВИТЬ"
           onClick={openDrawer}
         ></button>
 
         <button
-          className="button-flip"
+          className="button-flip text-lg"
           data-hover-text="ВЫХОД"
           onClick={logout}
         ></button>
 
         <Drawer
           destroyOnClose
-          title="Добавить операцию"
           width={800}
           onClose={closeDrawer}
           open={isDrawerOpen}
+          styles={{
+            header: { display: 'none' },
+            body: { backgroundColor: 'white' },
+          }}
         >
           <section className="drawer-body">
             <AddAssetForm onClose={closeDrawer} />

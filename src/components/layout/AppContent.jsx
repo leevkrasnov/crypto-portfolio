@@ -27,7 +27,7 @@ export default function AppContent({ headerRef }) {
         <section className="flex justify-end">
           <CoinCards />
         </section>
-        <section className="text-5xl font-bold text-gray-50 flex justify-end mt-32 mb-16">
+        <section className="text-6xl font-bold text-gray-50 flex justify-end mt-32 mb-16">
           Карта доходности
         </section>
         <section className="flex justify-between items-end mb-20">
@@ -38,7 +38,7 @@ export default function AppContent({ headerRef }) {
         </section>
       </div>
       <div className="app-end-content" ref={tableSectionRef}>
-        <section className="text-5xl font-bold text-gray-900 flex justify-end mt-20 mb-16">
+        <section className="text-6xl font-bold text-gray-900 flex justify-end mt-20 mb-16">
           Хроника сделок
         </section>
         <section className="flex flex-col">

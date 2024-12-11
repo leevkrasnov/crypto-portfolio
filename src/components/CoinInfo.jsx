@@ -1,4 +1,4 @@
-import { Flex, Typography, Statistic, Divider, Card } from 'antd';
+import { Statistic, Divider, Card } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 export default function CoinInfo({ coin, image }) {

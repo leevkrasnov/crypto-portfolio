@@ -16,7 +16,7 @@ export default function InteractiveButton({
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    const maxOffset = 20;
+    const maxOffset = 40;
     setPosition({
       x: Math.min(Math.max(x, -maxOffset), maxOffset),
       y: Math.min(Math.max(y, -maxOffset), maxOffset),
@@ -40,8 +40,8 @@ export default function InteractiveButton({
         }}
         transition={{
           type: 'spring',
-          stiffness: 500,
-          damping: 60,
+          stiffness: 900,
+          damping: 10,
         }}
       >
         {isDown ? <DownOutlined /> : <UpOutlined />}

@@ -26,7 +26,7 @@
 }
 
 body {
-  @apply bg-[#2b2b2b];
+  @apply bg-gray-50;
 }
 
 /* -------------------------Layout------------------------- */
@@ -46,7 +46,7 @@ body {
 }
 
 .button-flip {
-  @apply bg-transparent block relative overflow-hidden text-lg min-w-32 min-h-6 border-none cursor-pointer transition-colors duration-300;
+  @apply bg-transparent block relative overflow-hidden min-w-32 min-h-6 border-none cursor-pointer transition-colors duration-300;
 }
 
 .button-flip:after,
@@ -73,15 +73,19 @@ body {
 
 /* -------------------------Header Modal------------------------- */
 .profit-statistic {
-  @apply flex justify-between gap-8 items-start;
+  @apply flex justify-between gap-8 items-center;
 }
 
-.card-profit-modal {
-  @apply shadow-lg rounded-3xl bg-[#eeeeee] border border-[#eeeeee];
+.modal-card {
+  @apply rounded-none bg-gray-50 w-[330px] h-52 pb-4;
 }
 
 .modal .ant-modal-content {
-  @apply bg-gradient-to-r from-[#2b2b2b] to-[#4d4d4d] bg-[200\\%] rounded-2xl shadow-lg overflow-hidden;
+  @apply bg-[#2C372E] rounded-none overflow-hidden mb-32 pb-40;
+}
+
+.modal-container {
+  @apply flex flex-wrap justify-center gap-6;
 }
 
 /* -------------------------Content------------------------- */
@@ -98,7 +102,7 @@ body {
 }
 
 .marque-text {
-  @apply text-purple-700 text-2xl animate-marquee flex gap-48 font-normal;
+  @apply text-gray-800 text-3xl animate-marquee flex gap-48 font-normal;
 }
 
 .app-mid-content {
@@ -153,4 +157,66 @@ body {
 
 .table-profit-negative {
   @apply text-gray-900;
+}
+
+.ant-select-selector {
+  border-color: #d1d5db !important;
+  transition: border-color 0.3s ease;
+  font-size: 20px !important;
+  border-radius: 0px !important;
+}
+
+.ant-select-selection-placeholder {
+  font-size: 20px !important;
+}
+
+.ant-select-focused .ant-select-selector,
+.ant-select-selector:focus-within {
+  border-color: #9fb3a2 !important;
+  box-shadow: none !important;
+}
+
+.ant-select-selector:hover {
+  border-color: #9fb3a2 !important;
+  box-shadow: none !important;
+}
+
+.ant-select-status-error .ant-select-selector {
+  border-color: #7e22ce !important;
+  box-shadow: none !important;
+}
+
+.ant-input-number,
+.ant-picker {
+  border-radius: 0px;
+  font-size: 20px;
+  border-color: #d1d5db !important;
+  transition: border-color 0.3s ease;
+}
+
+.ant-input-number:hover,
+.ant-picker:hover {
+  border-color: #9fb3a2 !important;
+  box-shadow: none !important;
+}
+
+.ant-input-number:focus,
+.ant-picker-focused {
+  border-color: #9fb3a2 !important;
+  box-shadow: none !important;
+}
+
+.ant-input-number-status-error,
+.ant-picker-status-error {
+  border-color: #7e22ce !important;
+  box-shadow: none !important;
+}
+
+.ant-picker-input input::placeholder {
+  font-size: 20px !important;
+  color: #9ca3af;
+}
+
+.ant-picker-input input {
+  font-size: 20px !important;
 }
