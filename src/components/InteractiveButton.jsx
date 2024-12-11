@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
-export default function InteractiveButton() {
+export default function InteractiveButton({
+  onClick,
+  bgColor = 'bg-gray-50',
+  hoverColor = 'hover:bg-[#9FB3A2]',
+  isDown = true,
+}) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
@@ -25,7 +30,8 @@ export default function InteractiveButton() {
   return (
     <div className="relative flex items-center justify-center">
       <motion.button
-        className="relative w-12 h-12 rounded-full flex items-center justify-center bg-gray-200 overflow-hidden hover:bg-[#9FB3A2] duration-700"
+        onClick={onClick}
+        className={`interaktive-button ${hoverColor} ${bgColor} duration-700 bg-gray-50`}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         animate={{
@@ -34,11 +40,11 @@ export default function InteractiveButton() {
         }}
         transition={{
           type: 'spring',
-          stiffness: 300,
-          damping: 40,
+          stiffness: 500,
+          damping: 60,
         }}
       >
-        <DownOutlined />
+        {isDown ? <DownOutlined /> : <UpOutlined />}
       </motion.button>
     </div>
   );

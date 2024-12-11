@@ -8,8 +8,16 @@
   font-family: 'Nunito Sans';
   src: url('./assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
     format('truetype');
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('./assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
+    format('truetype');
+  font-weight: 700;
+  font-style: bold;
 }
 
 /* -------------------------Global------------------------- */
@@ -82,66 +90,67 @@ body {
 }
 
 .app-top-content {
-  @apply flex items-end min-h-[200px] pb-10;
+  @apply flex items-end min-h-52 pb-1;
 }
 
 .marque-container {
-  @apply overflow-hidden whitespace-nowrap w-[200px] relative;
+  @apply overflow-hidden whitespace-nowrap w-40 relative;
 }
 
 .marque-text {
-  @apply text-purple-700 text-2xl animate-marquee flex gap-48;
+  @apply text-purple-700 text-2xl animate-marquee flex gap-48 font-normal;
 }
 
 .app-mid-content {
-  @apply flex flex-col flex-1 px-20 py-4 bg-[#2C372E];
+  @apply flex flex-col min-h-[1200px] px-20 py-4 bg-[#2C372E];
 }
 
 .card-container {
-  @apply w-[350px] h-52 px-1 border border-gray-300 bg-gray-300 rounded-none ml-6;
+  @apply w-[330px] h-48 px-1 border border-gray-50 bg-gray-50 rounded-none ml-6;
 }
 
-/* -------------------------Content Button------------------------- */
-.buttonOpenTable {
-  @apply w-full h-[40px] text-[30px] mb-[60px] rounded-xl shadow-lg bg-[#4e4e4e] text-[#d0d0d0] transition-transform duration-300;
+.interaktive-button {
+  @apply relative w-12 h-12 rounded-full flex items-center justify-center overflow-hidden;
 }
 
-.buttonOpenTable:hover {
-  @apply bg-[#777777] scale-[1.01];
+.app-end-content {
+  @apply flex flex-col bg-white px-20;
 }
 
 /* -------------------------Content Table------------------------- */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 0px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #9ca3af; /* Цвет ползунка */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f3f4f6; /* Фон ползунка */
+}
+
+.scrollbar-thin:hover::-webkit-scrollbar-thumb {
+  background-color: #6b7280; /* Тёмный цвет при наведении */
+}
+
 .table-container {
-  @apply overflow-auto w-full rounded-3xl border border-[#2b2b2b] mb-20;
-
-  scrollbar-width: thin;
-  scrollbar-color: #888 transparent;
-
-  position: relative;
-  padding-bottom: 10px;
+  @apply w-full h-[500px] overflow-auto scrollbar-thin;
 }
 
-.table {
-  @apply rounded-3xl overflow-hidden shadow-lg;
+.table-header {
+  @apply sticky top-0 z-10 px-4 py-3 bg-gray-50 text-left cursor-pointer whitespace-nowrap;
 }
 
-.table-bold {
-  @apply font-bold;
-}
-
-.table-italic {
-  @apply italic;
+.table-content {
+  @apply px-4 py-3;
 }
 
 .table-profit-positive {
-  @apply text-green-500;
+  @apply text-purple-700;
 }
 
 .table-profit-negative {
-  @apply text-red-500;
-}
-
-/* -------------------------Footer------------------------- */
-.app-footer {
-  @apply rounded-2xl bg-[#2b2b2b] mt-24 mx-8;
+  @apply text-gray-900;
 }

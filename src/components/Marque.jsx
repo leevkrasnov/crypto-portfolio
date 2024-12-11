@@ -8,10 +8,10 @@ export default function Marque() {
 
   return (
     <div className="marque-container">
-      <p className="marque-text">
+      <section className="marque-text">
         <p>{usd ? formatCurrency(usd) : 0}</p>
         <p>{rub ? formatCurrency(rub, 'RUB', 'ru-RU') : 0}</p>
-      </p>
+      </section>
     </div>
   );
 }

@@ -31,12 +31,13 @@ export default function ROIGraph() {
         label: 'ROI (%)',
         data: metrics.map((asset) => asset.roi),
         borderWidth: 1.2,
-        pointRadius: 3,
-        pointBackgroundColor: '#d1d5db',
+        pointRadius: 6,
+        pointStyle: 'rect',
+        pointBackgroundColor: '#f9fafb',
         hoverRadius: 8,
         hoverBackgroundColor: '#9FB3A2',
         borderColor: '#6b7280',
-        tension: 0.3,
+        tension: 0.1,
       },
     ],
   };
@@ -50,7 +51,6 @@ export default function ROIGraph() {
         enabled: true,
         callbacks: {
           title: (tooltipItems) => {
-            // Показываем название актива
             const index = tooltipItems[0].dataIndex;
             return metrics[index].coin.name;
           },

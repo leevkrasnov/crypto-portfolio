@@ -7,7 +7,7 @@ export default function CoinInfo({ coin, image }) {
   return (
     <Card className="card-container">
       <section className="flex items-end justify-start gap-2">
-        <img src={image} alt={coin.name} width={36} />
+        <img src={image} alt={coin.name} width={32} />
         <p className="text-2xl">{coin.name}</p>
       </section>
 
@@ -17,7 +17,7 @@ export default function CoinInfo({ coin, image }) {
         <Statistic
           title="Стоимость"
           value={coin.current_price}
-          valueStyle={{ fontStyle: 'italic', fontSize: '22px' }}
+          valueStyle={{ fontSize: '22px' }}
           precision={1}
         />
 
@@ -26,7 +26,6 @@ export default function CoinInfo({ coin, image }) {
           value={coin.price_change_percentage_24h}
           precision={2}
           valueStyle={{
-            fontStyle: 'italic',
             fontSize: '22px',
           }}
           prefix={isPriceGrowing ? <ArrowUpOutlined /> : <ArrowDownOutlined />}

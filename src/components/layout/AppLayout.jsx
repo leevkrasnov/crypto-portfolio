@@ -1,13 +1,13 @@
-// import { Layout } from 'antd';
 import AppHeader from './AppHeader';
 import AppContent from './AppContent';
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import CryptoContext from '../../context/crypto-context';
-
 import Loading from '../animations/Loading';
 
 export default function AppLayout() {
   const { loading } = useContext(CryptoContext);
+
+  const headerRef = useRef(null);
 
   // Отображение спиннера при загрузке
   if (loading) {
@@ -17,8 +17,8 @@ export default function AppLayout() {
   // Основной макет приложения
   return (
     <>
-      <AppHeader />
-      <AppContent />
+      <AppHeader headerRef={headerRef} />
+      <AppContent headerRef={headerRef} />
     </>
   );
 }

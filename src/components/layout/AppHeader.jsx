@@ -1,10 +1,10 @@
-import { Layout, Modal, Drawer } from 'antd';
+import { Modal, Drawer } from 'antd';
 import AddAssetForm from '../AddAssetForm';
 import CoinProfitModal from '../CoinProfitModal';
 import { useModalState } from '../../utils/useModalState';
 import { useCrypto } from '../../context/crypto-context';
 
-export default function AppHeader() {
+export default function AppHeader({ headerRef }) {
   const { logout } = useCrypto();
 
   const {
@@ -20,13 +20,13 @@ export default function AppHeader() {
   } = useModalState();
 
   return (
-    <header className="header">
+    <header ref={headerRef} className="header">
       <div className="button-container">
-        <h2 className="text-2xl font-nunito antialiased">COINBOOK</h2>
+        <h2 className="text-2xl">COINBOOK</h2>
       </div>
       <div className="button-container">
         <button
-          class="button-flip"
+          className="button-flip"
           data-hover-text="СВОДКА"
           onClick={openModal}
         ></button>
@@ -40,13 +40,13 @@ export default function AppHeader() {
           <CoinProfitModal />
         </Modal>
         <button
-          class="button-flip"
+          className="button-flip"
           data-hover-text="ДОБАВИТЬ"
           onClick={openDrawer}
         ></button>
 
         <button
-          class="button-flip"
+          className="button-flip"
           data-hover-text="ВЫХОД"
           onClick={logout}
         ></button>
