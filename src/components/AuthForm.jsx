@@ -2,31 +2,28 @@ import { useAuth } from '../context/AuthContext';
 import { useState } from 'react';
 
 export default function AuthForm() {
-  const { login, setDemoMode, setIsAuthenticated } = useAuth();
+  const { login, setDemoMode } = useAuth();
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!password) {
-      setError(true);
-      setTimeout(() => setError(false), 500);
+      setError('Введите пароль');
       return;
     }
 
     try {
-      login(password);
-      setError(false);
+      await login(password);
+      setError('');
     } catch (err) {
-      setError(true);
-      setTimeout(() => setError(false), 500);
+      setError('Неверный пароль');
     }
   };
 
   const handleDemoMode = () => {
-    setDemoMode(true);
-    setIsAuthenticated(true);
+    setDemoMode(true); // `setDemoMode` теперь само управляет `isAuthenticated`
   };
 
   return (
@@ -50,9 +47,10 @@ export default function AuthForm() {
             autoFocus
             onChange={(e) => setPassword(e.target.value)}
             className={`w-full p-2 text-lg bg-gray-200 border border-gray-900 rounded-none focus:bg-white duration-500 outline-none ${
-              error ? 'shake' : ''
+              error ? 'border-red-500' : ''
             }`}
           />
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </div>
         <section className="flex gap-4 justify-between mt-5">
           <button type="submit" className="button-auth">

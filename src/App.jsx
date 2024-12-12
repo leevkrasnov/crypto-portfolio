@@ -8,11 +8,10 @@ import Loading from './components/animations/Loading';
 function AuthContainer() {
   const { isAuthenticated } = useAuth();
   const { isDataReady } = useCrypto();
-  if (isDataReady) {
-    return !isAuthenticated ? <AuthForm /> : <AppLayout />;
-  } else {
-    return <Loading />;
-  }
+
+  if (!isAuthenticated) return <AuthForm />;
+  if (!isDataReady) return <Loading />;
+  return <AppLayout />;
 }
 
 export default function App() {

@@ -3,9 +3,16 @@ import { createContext, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isDemoMode, setIsDemoMode] = useState(false);
+  // Инициализация состояний из localStorage
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return JSON.parse(localStorage.getItem('isAuthenticated')) || false;
+  });
 
+  const [isDemoMode, setIsDemoMode] = useState(() => {
+    return JSON.parse(localStorage.getItem('isDemoMode')) || false;
+  });
+
+  // Метод для входа
   const login = (password) => {
     if (password === import.meta.env.VITE_SECRET_PASSWORD) {
       setIsAuthenticated(true);
@@ -15,6 +22,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Метод для выхода
   const logout = () => {
     setIsAuthenticated(false);
     setIsDemoMode(false);
@@ -22,11 +30,12 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('isDemoMode');
   };
 
+  // Установка демо-режима
   const setDemoMode = (isDemo) => {
     setIsDemoMode(isDemo);
-    setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('isDemoMode', isDemo);
+    setIsAuthenticated(true); // Устанавливаем true для корректной работы
+    localStorage.setItem('isDemoMode', JSON.stringify(isDemo));
+    localStorage.setItem('isAuthenticated', 'true'); // Сохраняем статус аутентификации
   };
 
   return (

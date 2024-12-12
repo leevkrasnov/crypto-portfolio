@@ -8,8 +8,7 @@ import { useAuth } from './AuthContext';
 const CryptoContext = createContext();
 
 export const CryptoProvider = ({ children }) => {
-  const { isDemoMode, isAuthenticated, setIsAuthenticated, setDemoMode } =
-    useAuth();
+  const { isDemoMode, isAuthenticated } = useAuth();
   const { openNotification } = useNotification();
 
   const [cryptoData, setCryptoData] = useState([]);
@@ -19,57 +18,55 @@ export const CryptoProvider = ({ children }) => {
   const [isDataReady, setIsDataReady] = useState(false);
 
   useEffect(() => {
-    const authStatus = localStorage.getItem('isAuthenticated');
-    const demoStatus = localStorage.getItem('isDemoMode');
-
-    if (authStatus) {
-      setIsAuthenticated(true);
+    if (!isAuthenticated && !isDemoMode) {
+      // Если пользователь не авторизован и не в демо-режиме, очищаем данные
+      setCryptoData([]);
+      setAssets([]);
+      setExchangeRate(null);
+      setIsDataReady(false);
+      return;
     }
 
-    if (demoStatus) {
-      setDemoMode(true);
-    }
+    async function preload() {
+      setLoading(true);
+      setIsDataReady(false);
 
-    if (isAuthenticated || demoStatus) {
-      async function preload() {
-        setLoading(true);
-        setIsDataReady(false);
+      try {
+        const [cryptoData, exchangeRate, assetsData] = await Promise.all([
+          fetchCryptoData(),
+          getExchangeRate(),
+          isDemoMode
+            ? Promise.resolve(demoAssets)
+            : supabase
+                .from('assets')
+                .select('*')
+                .then(({ data, error }) => {
+                  if (error) throw new Error(error.message);
+                  return data.map((asset) => ({
+                    ...asset,
+                    coin: JSON.parse(asset.coin),
+                  }));
+                }),
+        ]);
 
-        try {
-          const cryptoData = await fetchCryptoData();
-          setCryptoData(cryptoData);
+        setCryptoData(cryptoData);
+        setExchangeRate(exchangeRate);
+        setAssets(assetsData);
 
-          const exchangeRate = await getExchangeRate();
-          setExchangeRate(exchangeRate);
+        // Кэшируем данные в localStorage
+        localStorage.setItem('cryptoData', JSON.stringify(cryptoData));
+        localStorage.setItem('exchangeRate', JSON.stringify(exchangeRate));
+        localStorage.setItem('assets', JSON.stringify(assetsData));
 
-          if (demoStatus) {
-            setAssets(demoAssets);
-          } else {
-            const { data: supabaseAssets, error } = await supabase
-              .from('assets')
-              .select('*');
-
-            if (error) throw new Error(error.message);
-
-            const parsedAssets = supabaseAssets.map((asset) => {
-              return {
-                ...asset,
-                coin: JSON.parse(asset.coin),
-              };
-            });
-            setAssets(parsedAssets || []);
-          }
-
-          setIsDataReady(true);
-        } catch (error) {
-          openNotification('error', 'Ошибка загрузки', `${error.message}`);
-        } finally {
-          setLoading(false);
-        }
+        setIsDataReady(true);
+      } catch (error) {
+        openNotification('error', 'Ошибка загрузки', `${error.message}`);
+      } finally {
+        setLoading(false);
       }
-
-      preload();
     }
+
+    preload();
   }, [isAuthenticated, isDemoMode]);
 
   const addAsset = async (newAsset) => {
@@ -78,7 +75,9 @@ export const CryptoProvider = ({ children }) => {
 
       if (error) throw new Error(error.message);
       if (data) {
-        setAssets((prevAssets) => [...prevAssets, data[0]]);
+        const updatedAssets = [...assets, data[0]];
+        setAssets(updatedAssets);
+        localStorage.setItem('assets', JSON.stringify(updatedAssets));
         openNotification('success', `${newAsset.coin.name} добавлен!`);
       }
     } catch (error) {
@@ -96,9 +95,9 @@ export const CryptoProvider = ({ children }) => {
 
       if (error) throw new Error(error.message);
 
-      setAssets((prevAssets) =>
-        prevAssets.filter((asset) => asset.id !== assetId)
-      );
+      const updatedAssets = assets.filter((asset) => asset.id !== assetId);
+      setAssets(updatedAssets);
+      localStorage.setItem('assets', JSON.stringify(updatedAssets));
       openNotification('success', `${assetToRemove.coin.name} удалён!`, '');
     } catch (error) {
       openNotification('error', 'Ошибка удаления', error.message);
