@@ -18,7 +18,7 @@ import {
   calculateROI,
   calculateHoldingTime,
 } from '../utils/calculateMetrics';
-import { useCrypto } from '../context/crypto-context';
+import { useCrypto } from '../context/CryptoContext';
 
 export default function TableAssets() {
   const { assets, removeAsset } = useCrypto();

@@ -1,4 +1,4 @@
-import { useCrypto } from '../context/crypto-context';
+import { useCrypto } from '../context/CryptoContext';
 import { calculateMetrics } from '../utils/calculateMetrics';
 import { Line } from 'react-chartjs-2';
 import {

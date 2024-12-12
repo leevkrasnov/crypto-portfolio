@@ -1,16 +1,8 @@
-import { useCrypto } from '../context/crypto-context';
+import { useCrypto } from '../context/CryptoContext';
 import CoinInfo from './CoinInfo';
 
 export default function CoinCards() {
-  const { cryptoData, isDataReady, hasError } = useCrypto();
-
-  if (hasError) {
-    return null;
-  }
-
-  if (!isDataReady) {
-    return null;
-  }
+  const { cryptoData } = useCrypto();
 
   const bitcoin = cryptoData.find((coin) => coin.id === 'bitcoin');
   const ethereum = cryptoData.find((coin) => coin.id === 'ethereum');

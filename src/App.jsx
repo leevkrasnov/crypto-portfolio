@@ -1,18 +1,28 @@
 import AppLayout from './components/layout/AppLayout';
-import { CryptoContextProvider } from './context/crypto-context';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { NotificationProvider } from './context/NotificationContext';
+import { CryptoProvider, useCrypto } from './context/CryptoContext';
 import AuthForm from './components/AuthForm';
-import { useCrypto } from './context/crypto-context';
+import Loading from './components/animations/Loading';
 
-function Authconteiner() {
-  const { isAuthenticated } = useCrypto();
-
-  return !isAuthenticated ? <AuthForm /> : <AppLayout />;
+function AuthContainer() {
+  const { isAuthenticated } = useAuth();
+  const { isDataReady } = useCrypto();
+  if (isDataReady) {
+    return !isAuthenticated ? <AuthForm /> : <AppLayout />;
+  } else {
+    return <Loading />;
+  }
 }
 
 export default function App() {
   return (
-    <CryptoContextProvider>
-      <Authconteiner />
-    </CryptoContextProvider>
+    <AuthProvider>
+      <NotificationProvider>
+        <CryptoProvider>
+          <AuthContainer />
+        </CryptoProvider>
+      </NotificationProvider>
+    </AuthProvider>
   );
 }

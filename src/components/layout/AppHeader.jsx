@@ -2,10 +2,10 @@ import { Modal, Drawer } from 'antd';
 import AddAssetForm from '../AddAssetForm';
 import CoinInfoModal from '../CoinInfoModal';
 import { useModalState } from '../../utils/useModalState';
-import { useCrypto } from '../../context/crypto-context';
+import { useAuth } from '../../context/AuthContext';
 
 export default function AppHeader({ headerRef }) {
-  const { logout } = useCrypto();
+  const { logout } = useAuth();
 
   const {
     isOpen: isModalOpen,

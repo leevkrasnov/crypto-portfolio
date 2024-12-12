@@ -26,7 +26,17 @@
 }
 
 body {
-  @apply bg-gray-50;
+  @apply bg-[#9FB3A2];
+}
+
+html,
+body {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* -------------------------Layout------------------------- */
@@ -102,7 +112,7 @@ body {
 }
 
 .marque-text {
-  @apply text-gray-800 text-3xl animate-marquee flex gap-48 font-normal;
+  @apply text-gray-900 text-3xl animate-marquee flex gap-48;
 }
 
 .app-mid-content {
@@ -158,6 +168,8 @@ body {
 .table-profit-negative {
   @apply text-gray-900;
 }
+
+/* -------------------------Ant Drower------------------------- */
 
 .ant-select-selector {
   border-color: #d1d5db !important;
@@ -219,4 +231,32 @@ body {
 
 .ant-picker-input input {
   font-size: 20px !important;
+}
+
+/* -------------------------Auth------------------------- */
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+.button-auth {
+  @apply border border-black px-7 py-2 rounded-3xl hover:bg-black hover:text-white duration-500 text-xl hover:scale-95;
 }

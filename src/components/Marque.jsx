@@ -1,6 +1,6 @@
 import { calculateTotalProfit } from '../utils/calculateMetrics';
 import { formatCurrency } from '../utils/formatCurrency';
-import { useCrypto } from '../context/crypto-context';
+import { useCrypto } from '../context/CryptoContext';
 
 export default function Marque() {
   const { exchangeRate, assets } = useCrypto();

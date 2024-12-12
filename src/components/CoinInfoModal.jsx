@@ -1,6 +1,6 @@
 import { Statistic, Divider, Card } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
-import { useCrypto } from '../context/crypto-context';
+import { useCrypto } from '../context/CryptoContext';
 import { calculateMetrics } from '../utils/calculateMetrics';
 
 export default function CoinInfoModal() {
