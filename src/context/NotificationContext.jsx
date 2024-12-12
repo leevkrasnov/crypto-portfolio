@@ -1,18 +1,39 @@
-import { createContext, useContext } from 'react';
-import { notification } from 'antd';
+import React, { createContext, useContext } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NotificationContext = createContext();
 
 export const NotificationProvider = ({ children }) => {
-  const [api, contextHolder] = notification.useNotification();
-
   const openNotification = (type, message, description) => {
-    api[type]({ message, description });
+    switch (type) {
+      case 'success':
+        toast.success(`${message} ${description}`);
+        break;
+      case 'error':
+        toast.error(`${message} ${description}`);
+        break;
+
+      default:
+        toast(`${message} - ${description}`);
+    }
   };
 
   return (
     <NotificationContext.Provider value={{ openNotification }}>
-      {contextHolder}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        closeButton={false}
+        icon={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       {children}
     </NotificationContext.Provider>
   );

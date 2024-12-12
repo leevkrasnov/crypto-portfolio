@@ -4,10 +4,11 @@ import CoinCards from '../CoinCards';
 import Marque from '../Marque';
 import ROIGraph from '../ROIGraph';
 import TableAssets from '../TableAssets';
+import { useNotification } from '../../context/NotificationContext';
 
 export default function AppContent({ headerRef }) {
   const tableSectionRef = useRef(null);
-
+  const { openNotification } = useNotification();
   const scrollTo = (ref) => {
     if (ref.current) {
       ref.current.scrollIntoView({

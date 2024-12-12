@@ -44,6 +44,21 @@ body::-webkit-scrollbar {
   @apply bg-[#9FB3A2];
 }
 
+.Toastify__toast {
+  border-radius: 0;
+  font-size: 18px;
+}
+
+.Toastify__toast--success {
+  background-color: #f3f4f6;
+  color: black;
+}
+
+.Toastify__toast--error {
+  background-color: #f3f4f6;
+  color: black;
+}
+
 /* -------------------------Header------------------------- */
 .header {
   @apply flex w-full items-center h-24 justify-between bg-[#9FB3A2] px-20;

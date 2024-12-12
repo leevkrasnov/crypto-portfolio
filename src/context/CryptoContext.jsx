@@ -79,7 +79,7 @@ export const CryptoProvider = ({ children }) => {
       if (error) throw new Error(error.message);
       if (data) {
         setAssets((prevAssets) => [...prevAssets, data[0]]);
-        openNotification('success', 'Актив добавлен!');
+        openNotification('success', `${newAsset.coin.name} добавлен!`);
       }
     } catch (error) {
       openNotification('error', 'Ошибка добавления', error.message);
@@ -88,6 +88,7 @@ export const CryptoProvider = ({ children }) => {
 
   const removeAsset = async (assetId) => {
     try {
+      const assetToRemove = assets.find((asset) => asset.id === assetId);
       const { error } = await supabase
         .from('assets')
         .delete()
@@ -98,7 +99,7 @@ export const CryptoProvider = ({ children }) => {
       setAssets((prevAssets) =>
         prevAssets.filter((asset) => asset.id !== assetId)
       );
-      openNotification('success', 'Актив удалён!');
+      openNotification('success', `${assetToRemove.coin.name} удалён!`, '');
     } catch (error) {
       openNotification('error', 'Ошибка удаления', error.message);
     }
