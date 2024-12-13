@@ -2,6 +2,16 @@ import { Statistic, Divider, Card } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 export default function CoinInfo({ coin, image }) {
+  if (!coin) {
+    return (
+      <Card className="card-container">
+        <section className="flex items-center justify-center h-full">
+          <p className="text-xl text-gray-500">Данные не прогрузились</p>
+        </section>
+      </Card>
+    );
+  }
+
   const isPriceGrowing = coin.price_change_percentage_24h > 0;
 
   return (

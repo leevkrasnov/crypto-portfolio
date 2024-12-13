@@ -3,6 +3,8 @@ import AddAssetForm from '../AddAssetForm';
 import CoinInfoModal from '../CoinInfoModal';
 import { useModalState } from '../../utils/useModalState';
 import { useAuth } from '../../context/AuthContext';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { motion } from 'framer-motion';
 
 export default function AppHeader({ headerRef }) {
   const { logout } = useAuth();
@@ -20,9 +22,9 @@ export default function AppHeader({ headerRef }) {
   } = useModalState();
 
   return (
-    <header ref={headerRef} className="header">
-      <div className="button-container">
-        <h2 className="text-2xl">COINBOOK</h2>
+    <header ref={headerRef} className="header relative">
+      <div className="icon-container">
+        <Logo className="w-full h-full" />
       </div>
       <div className="button-container">
         <button

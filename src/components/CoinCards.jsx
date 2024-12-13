@@ -2,10 +2,17 @@ import { useCrypto } from '../context/CryptoContext';
 import CoinInfo from './CoinInfo';
 
 export default function CoinCards() {
-  const { cryptoData } = useCrypto();
+  const { cryptoData, isDataReady } = useCrypto();
 
-  const bitcoin = cryptoData.find((coin) => coin.id === 'bitcoin');
-  const ethereum = cryptoData.find((coin) => coin.id === 'ethereum');
+  if (!isDataReady) {
+    return <p>Загрузка данных...</p>;
+  }
+
+  const safeCryptoData = Array.isArray(cryptoData) ? cryptoData : [];
+
+  const bitcoin = safeCryptoData.find((coin) => coin.id === 'bitcoin') || null;
+  const ethereum =
+    safeCryptoData.find((coin) => coin.id === 'ethereum') || null;
 
   return (
     <>
