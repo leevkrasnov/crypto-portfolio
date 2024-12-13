@@ -6,6 +6,14 @@ export default function Marque() {
   const { exchangeRate, assets } = useCrypto();
   const { usd, rub } = calculateTotalProfit({ exchangeRate, assets });
 
+  if (!exchangeRate || !assets || assets.length === 0) {
+    return (
+      <div className="marque-container">
+        <p className="text-gray-500">Данные не поступили</p>
+      </div>
+    );
+  }
+
   return (
     <div className="marque-container">
       <section className="marque-text">
