@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         nunito: ['Nunito Sans', 'sans-serif'],
+        quantico: ['Quantico-BoldItalic', 'sans-serif'],
       },
       animation: {
         marquee: 'marquee 12s linear infinite',

@@ -1,8 +1,10 @@
 import { cryptoSectors } from '../data/cryptoSectors.js';
 import { Select, Divider, Form, InputNumber, DatePicker } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useCrypto } from '../context/CryptoContext';
 import { validateMessages } from '../data/validateMesseges.js';
+import InteractiveButton from './InteractiveButton.jsx';
 
 export default function AddAssetForm() {
   const [form] = Form.useForm();
@@ -79,13 +81,18 @@ export default function AddAssetForm() {
 
   return (
     <div>
-      <div className="h-20 flex justify-end items-center text-6xl font-bold mt-10 mb-10 mr-10">
+      <div className="h-20 flex justify-between items-center m-10">
+        <InteractiveButton
+          onClick={() => setCoin(false)}
+          arrowDirection={<LeftOutlined />}
+        />
         {coin && (
           <div className="flex items-center gap-4">
-            <h1 className="text-6xl">{coin.name}</h1>
+            <h1 className="text-6xl font-bold">{coin.name}</h1>
           </div>
         )}
       </div>
+
       <Form
         form={form}
         name="coin"
@@ -95,23 +102,6 @@ export default function AddAssetForm() {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        {/* <Select
-          className="w-[100%] h-10 mt-20 custom-select"
-          value={coin?.id || undefined}
-          onChange={(id) => setCoin(cryptoData.find((c) => c.id === id))}
-          placeholder="Выбери криптовалюту"
-          optionLabelProp="children"
-        >
-          {cryptoData.map((coin) => (
-            <Select.Option key={coin.id} value={coin.id}>
-              <div className="flex gap-4 items-center text-xl">
-                <img src={coin.image} alt={coin.name} className="w-7" />
-                {coin.name}
-              </div>
-            </Select.Option>
-          ))}
-        </Select> */}
-
         <Form.Item name="sector" rules={[{ required: true }]}>
           <Select placeholder="Сектор" className="h-[40px]">
             {cryptoSectors.map((cryptoSection) => (

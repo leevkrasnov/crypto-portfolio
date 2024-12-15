@@ -20,9 +20,24 @@
   font-style: bold;
 }
 
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
+    format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quantico-BoldItalic';
+  src: url('/assets/fonts/Quantico-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
 /* -------------------------Global------------------------- */
 * {
-  @apply box-border m-0 p-0 font-nunito antialiased;
+  @apply font-nunito antialiased;
 }
 
 body {
@@ -40,9 +55,6 @@ body::-webkit-scrollbar {
 }
 
 /* -------------------------Layout------------------------- */
-.layout-container {
-  @apply bg-[#9FB3A2];
-}
 
 .Toastify__toast {
   border-radius: 0;
@@ -61,11 +73,11 @@ body::-webkit-scrollbar {
 
 /* -------------------------Header------------------------- */
 .header {
-  @apply relative flex w-full items-center h-24 justify-end bg-[#9FB3A2] px-20;
+  @apply relative flex w-full items-center h-32 justify-between bg-[#9FB3A2] px-20;
 }
 
 .icon-container {
-  @apply absolute top-6 left-16 w-20 h-20 flex items-center justify-center;
+  @apply absolute top-3 left-16 flex items-center justify-center;
 }
 
 .animated-icon {
@@ -123,11 +135,11 @@ body::-webkit-scrollbar {
 
 /* -------------------------Content------------------------- */
 .app-content {
-  @apply flex flex-col bg-[#9FB3A2] h-screen;
+  @apply flex flex-col h-screen;
 }
 
 .app-top-content {
-  @apply flex items-end min-h-52 pb-1;
+  @apply flex items-end relative min-h-20 pb-1 px-20;
 }
 
 .marque-container {
@@ -147,7 +159,7 @@ body::-webkit-scrollbar {
 }
 
 .interaktive-button {
-  @apply relative w-12 h-12 rounded-full flex items-center justify-center overflow-hidden;
+  @apply relative w-12 h-12 rounded-full flex items-center justify-center;
 }
 
 .app-end-content {
@@ -161,7 +173,7 @@ body::-webkit-scrollbar {
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background-color: #9ca3af; /* Цвет ползунка */
+  background-color: #6b7280; /* Цвет ползунка */
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
@@ -217,7 +229,7 @@ body::-webkit-scrollbar {
 }
 
 .ant-select-status-error .ant-select-selector {
-  border-color: #7e22ce !important;
+  border-color: #d1d5db !important;
   box-shadow: none !important;
 }
 
@@ -243,13 +255,13 @@ body::-webkit-scrollbar {
 
 .ant-input-number-status-error,
 .ant-picker-status-error {
-  border-color: #7e22ce !important;
+  border-color: #d1d5db !important;
   box-shadow: none !important;
 }
 
 .ant-picker-input input::placeholder {
   font-size: 20px !important;
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .ant-picker-input input {
@@ -282,4 +294,51 @@ body::-webkit-scrollbar {
 
 .button-auth {
   @apply border border-black px-7 py-2 rounded-3xl hover:bg-black hover:text-white duration-500 text-xl hover:scale-95;
+}
+
+.text-shadow-pop-tl {
+  -webkit-animation: text-shadow-pop-tl 0.6s both;
+  animation: text-shadow-pop-tl 0.6s both;
+  color: #111827;
+}
+
+@-webkit-keyframes text-shadow-pop-tl {
+  0% {
+    text-shadow: 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280,
+      0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280;
+    -webkit-transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    text-shadow: -0.5px -0.5px #6b7280, -1px -1px #6b7280, -1.5px -1.5px #6b7280,
+      -2px -2px #6b7280, -2.5px -2.5px #6b7280, -3px -3px #6b7280,
+      -3.5px -3.5px #6b7280, -4px -4px #6b7280;
+    -webkit-transform: translateX(4px) translateY(4px);
+    transform: translateX(4px) translateY(4px);
+  }
+}
+
+@keyframes text-shadow-pop-tl {
+  0% {
+    text-shadow: 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280,
+      0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280;
+    -webkit-transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    text-shadow: -0.5px -0.5px #6b7280, -1px -1px #6b7280, -1.5px -1.5px #6b7280,
+      -2px -2px #6b7280, -2.5px -2.5px #6b7280, -3px -3px #6b7280,
+      -3.5px -3.5px #6b7280, -4px -4px #6b7280;
+    -webkit-transform: translateX(4px) translateY(4px);
+    transform: translateX(4px) translateY(4px);
+  }
+}
+
+.bubble-container {
+  width: 400px;
+  height: 400px;
+  background-color: #9fb3a2;
+  border: 2px solid #2c372e;
+  border-radius: 12px;
+  overflow: hidden;
 }

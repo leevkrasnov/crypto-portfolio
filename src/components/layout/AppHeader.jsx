@@ -4,7 +4,7 @@ import CoinInfoModal from '../CoinInfoModal';
 import { useModalState } from '../../utils/useModalState';
 import { useAuth } from '../../context/AuthContext';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { motion } from 'framer-motion';
+import HomeLogo from '../animations/HomeLogo';
 
 export default function AppHeader({ headerRef }) {
   const { logout } = useAuth();
@@ -22,10 +22,11 @@ export default function AppHeader({ headerRef }) {
   } = useModalState();
 
   return (
-    <header ref={headerRef} className="header relative">
-      <div className="icon-container">
-        <Logo className="w-full h-full" />
+    <header ref={headerRef} className="header">
+      <div className="absolute left-0 w-[200px] rotate-90 z-0">
+        <HomeLogo className="w-full h-full" />
       </div>
+      <div className="text-2xl ml-[70px]">COINBOOK</div>
       <div className="button-container">
         <button
           className="button-flip text-lg"

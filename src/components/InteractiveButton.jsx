@@ -1,50 +1,96 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 export default function InteractiveButton({
   onClick,
-  bgColor = 'bg-gray-50',
-  hoverColor = 'hover:bg-[#9FB3A2]',
-  isDown = true,
+  arrowDirection,
+  threshold = 50, // Порог расстояния для магнитного эффекта
 }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [iconPosition, setIconPosition] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+  const buttonRef = useRef(null);
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!buttonRef.current) return;
 
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
+      const rect = buttonRef.current.getBoundingClientRect();
 
-    const maxOffset = 40;
-    setPosition({
-      x: Math.min(Math.max(x, -maxOffset), maxOffset),
-      y: Math.min(Math.max(y, -maxOffset), maxOffset),
-    });
-  };
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
-  };
+      const diffX = e.clientX - centerX;
+      const diffY = e.clientY - centerY;
+      const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+
+      if (distance < threshold) {
+        const magneticStrength = (threshold - distance) / threshold;
+        setPosition({
+          x: diffX * magneticStrength * 0.5, // Ограничиваем движение кнопки
+          y: diffY * magneticStrength * 0.5,
+        });
+
+        setIconPosition({
+          x: diffX * magneticStrength * 0.8, // Иконка движется сильнее
+          y: diffY * magneticStrength * 0.8,
+        });
+      } else {
+        setPosition({ x: 0, y: 0 });
+        setIconPosition({ x: 0, y: 0 });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [threshold]);
 
   return (
     <div className="relative flex items-center justify-center">
       <motion.button
+        ref={buttonRef}
         onClick={onClick}
-        className={`interaktive-button ${hoverColor} ${bgColor} duration-700 bg-gray-50`}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className={`relative overflow-hidden w-12 h-12 rounded-full flex items-center justify-center bg-gray-100`}
         animate={{
           x: position.x,
           y: position.y,
         }}
         transition={{
           type: 'spring',
-          stiffness: 900,
-          damping: 10,
+          stiffness: 800,
+          damping: 100,
         }}
       >
-        {isDown ? <DownOutlined /> : <UpOutlined />}
+        {/* Псевдоэлемент для вертикальной заливки */}
+        <span
+          className={`absolute inset-0 transform transition-transform duration-500 ease-in-out origin-bottom ${
+            hovered ? 'scale-y-100 bg-black' : 'scale-y-0 bg-black'
+          }`}
+        ></span>
+
+        {/* Иконка с независимым движением */}
+        <motion.span
+          className={`relative z-10 transition-colors duration-500 ${
+            hovered ? 'text-white' : 'text-black'
+          }`}
+          animate={{
+            x: iconPosition.x,
+            y: iconPosition.y,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 200,
+            damping: 100,
+          }}
+        >
+          {arrowDirection}
+        </motion.span>
       </motion.button>
     </div>
   );
