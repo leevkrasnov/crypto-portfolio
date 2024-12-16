@@ -1,31 +1,21 @@
-// Универсальная функция для запросов через AllOrigins
+// Универсальная функция для запросов через прокси
 async function fetchData(API_URL) {
-  const PROXY_URL = 'https://api.allorigins.win/get?url=';
-  const ENCODED_URL = encodeURIComponent(API_URL);
+  const PROXY_URL =
+    'https://proxy-crypto-portfolio-production.up.railway.app/api/proxy';
 
   try {
-    const response = await fetch(`${PROXY_URL}${ENCODED_URL}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      `${PROXY_URL}?url=${encodeURIComponent(API_URL)}`
+    );
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
     }
 
-    const data = await response.json();
-
-    // Проверяем, возвращается ли XML
-    if (data.contents.startsWith('<?xml')) {
-      return data.contents;
-    }
-
-    // Пытаемся обработать как JSON
-    return JSON.parse(data.contents);
+    // Парсим данные как JSON
+    return await response.json();
   } catch (error) {
-    console.error('Ошибка при запросе к API:', error);
+    console.error('Ошибка при запросе к API через прокси:', error);
     throw error;
   }
 }
@@ -39,18 +29,15 @@ export async function fetchCryptoData() {
 
 // Функция для получения курса валют
 export async function getExchangeRate() {
-  const API_URL = 'https://www.cbr.ru/scripts/XML_daily.asp';
+  const API_URL = 'https://open.er-api.com/v6/latest/USD';
 
   try {
     const data = await fetchData(API_URL);
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(data, 'text/xml');
 
-    const usdRate = xml
-      .querySelector('Valute[ID="R01235"] Value')
-      .textContent.replace(',', '.');
+    // Получаем курс USD к RUB
+    const usdToRubRate = data.rates.RUB;
 
-    return parseFloat(usdRate);
+    return parseFloat(usdToRubRate.toFixed(2));
   } catch (error) {
     console.error('Ошибка при запросе к курсу валют:', error);
     throw error;

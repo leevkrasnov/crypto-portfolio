@@ -64,7 +64,11 @@ export const CryptoProvider = ({ children }) => {
         }
       } catch (error) {
         retryCount += 1;
-        openNotification('error', 'Ошибка загрузки', `${error.message}`);
+        openNotification(
+          'error',
+          'Ошибка загрузки',
+          'Не удалось подключиться к CoinGecko'
+        );
 
         if (retryCount < maxRetries) {
           openNotification(
@@ -76,8 +80,8 @@ export const CryptoProvider = ({ children }) => {
         } else {
           openNotification(
             'error',
-            'Превышение количества попыток загрузки данных',
-            'Обновите страницу или зайдите позже'
+            'Неудача :(',
+            'Не удалось подключиться к CoinGecko'
           );
         }
       } finally {
