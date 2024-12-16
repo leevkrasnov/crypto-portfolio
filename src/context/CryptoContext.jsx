@@ -19,13 +19,15 @@ export const CryptoProvider = ({ children }) => {
 
   useEffect(() => {
     if (!isAuthenticated && !isDemoMode) {
-      // Если пользователь не авторизован и не в демо-режиме, очищаем данные
       setCryptoData([]);
       setAssets([]);
       setExchangeRate(null);
       setIsDataReady(false);
       return;
     }
+
+    let retryCount = 0;
+    const maxRetries = 3;
 
     async function preload() {
       setLoading(true);
@@ -57,10 +59,27 @@ export const CryptoProvider = ({ children }) => {
         localStorage.setItem('cryptoData', JSON.stringify(cryptoData));
         localStorage.setItem('exchangeRate', JSON.stringify(exchangeRate));
         localStorage.setItem('assets', JSON.stringify(assetsData));
-
-        setIsDataReady(true);
+        if (exchangeRate && cryptoData.length !== 0) {
+          setIsDataReady(true);
+        }
       } catch (error) {
+        retryCount += 1;
         openNotification('error', 'Ошибка загрузки', `${error.message}`);
+
+        if (retryCount < maxRetries) {
+          openNotification(
+            'error',
+            'Повторная загрузка данных',
+            `Попытка: ${retryCount}`
+          );
+          setTimeout(preload, 2000);
+        } else {
+          openNotification(
+            'error',
+            'Превышение количества попыток загрузки данных',
+            'Обновите страницу или зайдите позже'
+          );
+        }
       } finally {
         setLoading(false);
       }

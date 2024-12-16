@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import InteractiveButton from '../InteractiveButton';
 import CoinCards from '../CoinCards';
-import Marque from '../Marque';
 import ROIGraph from '../ROIGraph';
 import TableAssets from '../TableAssets';
 import { UpOutlined } from '@ant-design/icons';

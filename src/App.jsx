@@ -5,7 +5,6 @@ import { NotificationProvider } from './context/NotificationContext';
 import { CryptoProvider, useCrypto } from './context/CryptoContext';
 import AuthForm from './components/AuthForm';
 import LoadingScreen from './components/animations/LoadingScreen';
-import { time } from 'framer-motion/client';
 
 function AuthContainer() {
   const { isAuthenticated } = useAuth();

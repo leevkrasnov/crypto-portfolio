@@ -85,7 +85,7 @@ export default function ROIGraph() {
   };
 
   return (
-    <div className="w-[1100px] h-[500px] p-6">
+    <div className="w-[1000px] h-[500px] p-6">
       <Line data={data} options={options} />
     </div>
   );

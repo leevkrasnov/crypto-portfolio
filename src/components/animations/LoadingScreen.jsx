@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import Lottie from 'lottie-react';
+import animationData from '../../assets/loadingDog.json';
 
 export default function LoadingScreen({ isDataReady, onAnimationEnd }) {
   const [progress, setProgress] = useState(0);
@@ -51,20 +53,31 @@ export default function LoadingScreen({ isDataReady, onAnimationEnd }) {
   if (isHidden) return null;
 
   return (
+    // <div
+    //   className={`fixed inset-0 flex flex-col items-center justify-center bg-[#9fb3a2] text-gray-50 ${
+    //     isLoaded ? 'opacity-0' : 'opacity-100'
+    //   } transition-opacity duration-500 ease-in-out`}
+    // >
+    //   <div className="relative w-[20%] h-8 shadow-2xl border border-black bg-gray-200  overflow-hidden">
+    //     <div
+    //       className="absolute top-0 left-0 h-full bg-[#2C372E] ease-linear transition-[width] duration-[500ms]"
+    //       style={{ width: `${progress}%` }}
+    //     />
+    //   </div>
     <div
-      className={`fixed inset-0 flex flex-col items-center justify-center bg-[#9fb3a2] text-gray-50 ${
+      className={`relative w-screen h-screen ${
         isLoaded ? 'opacity-0' : 'opacity-100'
       } transition-opacity duration-500 ease-in-out`}
     >
-      <div className="relative w-[20%] h-8 shadow-2xl border border-black bg-gray-200  overflow-hidden">
-        <div
-          className="absolute top-0 left-0 h-full bg-[#2C372E] ease-linear transition-[width] duration-[500ms]"
-          style={{ width: `${progress}%` }}
+      <div className="flex items-center justify-center w-full h-full">
+        <Lottie
+          animationData={animationData}
+          loop={true}
+          autoplay={true}
+          className="w-60 h-60"
         />
       </div>
-
-      {/* Процент загрузки */}
-      <div className="font-quantico absolute bottom-10 left-10 text-9xl text-gray-800">
+      <div className="font-quantico absolute bottom-10 left-10 text-7xl text-gray-800">
         {progress}%
       </div>
     </div>

@@ -138,20 +138,16 @@ body::-webkit-scrollbar {
   @apply flex flex-col h-screen;
 }
 
-.app-top-content {
-  @apply flex items-end relative min-h-20 pb-1 px-20;
-}
-
-.marque-container {
+/* .marque-container {
   @apply overflow-hidden whitespace-nowrap w-40 relative;
 }
 
 .marque-text {
   @apply text-gray-900 text-3xl animate-marquee flex gap-48;
-}
+} */
 
 .app-mid-content {
-  @apply flex flex-col min-h-[1200px] px-20 py-4 bg-[#2C372E];
+  @apply flex flex-col min-h-[1200px] px-20 py-10 bg-[#2C372E];
 }
 
 .card-container {
