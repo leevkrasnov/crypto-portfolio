@@ -21,18 +21,18 @@ export default function AppContent({ headerRef }) {
   return (
     <main className="app-content">
       <div className="app-mid-content">
-        <section className="flex justify-between">
+        <section className="flex flex-col gap-20 sm:flex-row sm:justify-between">
           <div>
             <CardProfit />
           </div>
-          <div className="flex">
+          <div className="flex flex-col gap-6 sm:flex-row">
             <CoinCards />
           </div>
         </section>
-        <section className="text-6xl font-bold text-gray-50 flex justify-end mt-32 mb-16">
+        <section className="hidden md:text-6xl md:font-bold md:text-gray-50 md:flex justify-end mt-32 mb-16">
           Карта рентабельности
         </section>
-        <section className="flex justify-between items-end mb-20">
+        <section className="hidden md:flex justify-between items-end mb-20">
           <div className="bg-gray-50">
             <ROIGraph />
           </div>
@@ -40,7 +40,7 @@ export default function AppContent({ headerRef }) {
         </section>
       </div>
       <div className="app-end-content" ref={tableSectionRef}>
-        <section className="text-6xl font-bold text-gray-900 flex justify-end mt-20 mb-16">
+        <section className="text-3xl lg:text-6xl font-bold text-gray-900 flex justify-end mt-20 mb-16">
           Хроника сделок
         </section>
         <section className="flex flex-col">

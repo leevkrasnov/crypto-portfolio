@@ -30,7 +30,7 @@ export default function AddAssetForm() {
   if (!coin) {
     return (
       <div>
-        <h1 className="h-20 flex justify-end items-center text-6xl font-bold mt-10 mb-10">
+        <h1 className="h-20 flex justify-end items-center text-4xl lg:text-6xl font-bold mt-10 mb-10">
           Создать сделку
         </h1>
         <Select
@@ -81,7 +81,7 @@ export default function AddAssetForm() {
 
   return (
     <div>
-      <div className="h-20 flex justify-between items-center m-10">
+      <div className="h-20 flex justify-between items-center mb-10 lg:m-10">
         <InteractiveButton
           onClick={() => setCoin(false)}
           arrowDirection={<LeftOutlined />}
@@ -151,7 +151,7 @@ export default function AddAssetForm() {
         <Form.Item>
           <div className="flex justify-end mt-10">
             <button
-              className="button-flip text-xl"
+              className="button-flip min-w-28 text-lg lg:text-xl"
               type="submit"
               data-hover-text="ОТПРАВИТЬ"
             ></button>

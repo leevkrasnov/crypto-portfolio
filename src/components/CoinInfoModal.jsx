@@ -13,7 +13,7 @@ export default function CoinInfoModal() {
 
   return (
     <div>
-      <h2 className="text-gray-50 text-6xl font-bold ml-8 mb-20 mt-6">
+      <h2 className="text-gray-50 text-4xl lg:text-6xl font-bold mb-10 lg:ml-8 lg:mb-20 mt-6">
         Итоговые показатели
       </h2>
       <div className="modal-container">

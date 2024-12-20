@@ -22,14 +22,15 @@ export default function AppHeader({ headerRef }) {
 
   return (
     <header ref={headerRef} className="header">
-      <div className="flex items-center text-4xl">
+      <div className="hidden md:flex items-center md:text-lg lg:text-4xl">
         <span className="leading-none">C</span>
         <Logo className="w-[1em] h-[1em] inline-block align-middle" />
         <span className="leading-none">INBOOK</span>
       </div>
-      <div className="button-container">
+      <Logo className="w-[30px] md:hidden" />
+      <div className="flex items-center text-gray-900 gap-2">
         <button
-          className="button-flip text-lg"
+          className="button-flip min-w-24 text-sm lg:text-lg"
           data-hover-text="СВОДКА"
           onClick={openModal}
         ></button>
@@ -43,13 +44,13 @@ export default function AppHeader({ headerRef }) {
           <CoinInfoModal />
         </Modal>
         <button
-          className="button-flip text-lg"
+          className="button-flip min-w-24 text-sm lg:text-lg"
           data-hover-text="ДОБАВИТЬ"
           onClick={openDrawer}
         ></button>
 
         <button
-          className="button-flip text-lg"
+          className="button-flip min-w-24 text-sm lg:text-lg"
           data-hover-text="ВЫХОД"
           onClick={logout}
         ></button>

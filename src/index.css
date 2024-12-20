@@ -73,25 +73,13 @@ body::-webkit-scrollbar {
 
 /* -------------------------Header------------------------- */
 .header {
-  @apply relative flex w-full items-center h-32 justify-between bg-[#9FB3A2] px-20;
-}
-
-.icon-container {
-  @apply absolute top-3 left-16 flex items-center justify-center;
-}
-
-.animated-icon {
-  @apply w-full h-full;
+  @apply relative flex w-full items-center h-16 lg:h-32 justify-between bg-[#9FB3A2] px-8 lg:px-20;
 }
 
 /* -------------------------Header Buttons------------------------- */
 
-.button-container {
-  @apply flex items-center text-gray-900 gap-2;
-}
-
 .button-flip {
-  @apply bg-transparent block relative overflow-hidden min-w-32 min-h-6 border-none cursor-pointer transition-colors duration-300;
+  @apply bg-transparent block relative overflow-hidden lg:min-w-32 min-h-6 border-none cursor-pointer transition-colors duration-300;
 }
 
 .button-flip:after,
@@ -147,11 +135,11 @@ body::-webkit-scrollbar {
 } */
 
 .app-mid-content {
-  @apply flex flex-col min-h-[1200px] px-20 py-10 bg-[#2C372E];
+  @apply flex flex-col min-h-[600px] md:min-h-[1200px] px-8 lg:px-20 lg:py-10 bg-[#2C372E];
 }
 
 .card-container {
-  @apply w-[330px] h-48 px-1 border border-gray-50 bg-gray-50 rounded-none ml-6;
+  @apply w-[330px] h-48 px-1 border border-gray-50 bg-gray-50 rounded-none lg:ml-6;
 }
 
 .interaktive-button {
@@ -159,7 +147,7 @@ body::-webkit-scrollbar {
 }
 
 .app-end-content {
-  @apply flex flex-col bg-white px-20;
+  @apply flex flex-col bg-white px-8 lg:px-20;
 }
 
 /* -------------------------Content Table------------------------- */
