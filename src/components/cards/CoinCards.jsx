@@ -25,11 +25,7 @@ export default function CoinCards() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       {filteredCoins.map((coin, index) =>
         coin ? (
-          <CoinInfo
-            key={coin.id}
-            coin={coin}
-            image={`src/assets/icons/${coin.id}.svg`}
-          />
+          <CoinInfo key={coin.id} coin={coin} image={`/${coin.id}.svg`} />
         ) : (
           <div
             key={index}
