@@ -7,15 +7,7 @@ module.exports = {
         nunito: ['Nunito Sans', 'sans-serif'],
         quantico: ['Quantico-BoldItalic', 'sans-serif'],
       },
-      animation: {
-        marquee: 'marquee 12s linear infinite',
-      },
-      keyframes: {
-        marquee: {
-          '0%': { transform: 'translateX(180%)' },
-          '100%': { transform: 'translateX(-290%)' },
-        },
-      },
+      colors: { 'dark-900': '#2C372E', 'dark-200': '#9FB3A2' },
     },
   },
   plugins: [],

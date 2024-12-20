@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 export default function InteractiveButton({
   onClick,
   arrowDirection,
   threshold = 50, // Порог расстояния для магнитного эффекта
+  className = '', // Дополнительные стили
 }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [iconPosition, setIconPosition] = useState({ x: 0, y: 0 });
@@ -17,7 +17,6 @@ export default function InteractiveButton({
       if (!buttonRef.current) return;
 
       const rect = buttonRef.current.getBoundingClientRect();
-
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
@@ -31,7 +30,6 @@ export default function InteractiveButton({
           x: diffX * magneticStrength * 0.5, // Ограничиваем движение кнопки
           y: diffY * magneticStrength * 0.5,
         });
-
         setIconPosition({
           x: diffX * magneticStrength * 0.8, // Иконка движется сильнее
           y: diffY * magneticStrength * 0.8,
@@ -43,20 +41,20 @@ export default function InteractiveButton({
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, [threshold]);
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div className={`relative flex items-center justify-center ${className}`}>
       <motion.button
         ref={buttonRef}
         onClick={onClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={`relative overflow-hidden w-12 h-12 rounded-full flex items-center justify-center bg-gray-100`}
+        className={`relative w-12 h-12 rounded-full flex items-center justify-center 
+                    bg-gray-100  overflow-hidden transition-colors`}
         animate={{
           x: position.x,
           y: position.y,
@@ -69,7 +67,7 @@ export default function InteractiveButton({
       >
         {/* Псевдоэлемент для вертикальной заливки */}
         <span
-          className={`absolute inset-0 transform transition-transform duration-500 ease-in-out origin-bottom ${
+          className={`absolute inset-0 transform origin-bottom transition-transform duration-500 ease-in-out ${
             hovered ? 'scale-y-100 bg-black' : 'scale-y-0 bg-black'
           }`}
         ></span>

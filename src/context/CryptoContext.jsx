@@ -92,6 +92,25 @@ export const CryptoProvider = ({ children }) => {
     preload();
   }, [isAuthenticated, isDemoMode]);
 
+  // Функция для обновления активов
+  const refreshAssets = async () => {
+    try {
+      const { data, error } = await supabase.from('assets').select('*');
+
+      if (error) throw new Error(error.message);
+
+      const updatedAssets = data.map((asset) => ({
+        ...asset,
+        coin: JSON.parse(asset.coin),
+      }));
+
+      setAssets(updatedAssets);
+      localStorage.setItem('assets', JSON.stringify(updatedAssets));
+    } catch (error) {
+      openNotification('error', 'Ошибка обновления данных', '');
+    }
+  };
+
   const addAsset = async (newAsset) => {
     try {
       const { data, error } = await supabase.from('assets').insert([newAsset]);
@@ -135,6 +154,7 @@ export const CryptoProvider = ({ children }) => {
         exchangeRate,
         loading,
         isDataReady,
+        refreshAssets,
         addAsset,
         removeAsset,
       }}

@@ -1,5 +1,5 @@
-import { useCrypto } from '../context/CryptoContext';
-import { calculateMetrics } from '../utils/calculateMetrics';
+import { useCrypto } from '@context/CryptoContext';
+import { calculateMetrics } from '@utils/calculateMetrics';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -22,7 +22,16 @@ ChartJS.register(
 
 export default function ROIGraph() {
   const { assets } = useCrypto();
-  const metrics = calculateMetrics(assets);
+  const metrics = assets && assets.length > 0 ? calculateMetrics(assets) : [];
+
+  // Проверка, есть ли данные для отображения
+  if (!metrics || metrics.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-48 text-gray-500">
+        Нет данных для отображения графика ROI
+      </div>
+    );
+  }
 
   const data = {
     labels: metrics.map((asset) => asset.coin.name),

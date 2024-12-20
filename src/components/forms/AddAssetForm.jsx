@@ -1,32 +1,35 @@
-import { cryptoSectors } from '../data/cryptoSectors.js';
+import { cryptoSectors } from '../../data/cryptoSectors.js';
 import { Select, Divider, Form, InputNumber, DatePicker } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import { useCrypto } from '../context/CryptoContext';
-import { validateMessages } from '../data/validateMesseges.js';
-import InteractiveButton from './InteractiveButton.jsx';
+import { useCrypto } from '../../context/CryptoContext.jsx';
+import { validateMessages } from '../../data/validateMesseges.js';
+import InteractiveButton from '../common/InteractiveButton.jsx';
 
-export default function AddAssetForm() {
+export default function AddAssetForm({ closeDrawer }) {
   const [form] = Form.useForm();
-  const { cryptoData, addAsset } = useCrypto();
+  const { cryptoData, addAsset, refreshAssets } = useCrypto();
 
   const [coin, setCoin] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
+  // Если данные успешно отправлены, показываем экран успеха
   if (submitted && coin) {
     return (
       <div className="m-12 flex flex-col">
         <h1 className="text-6xl">{coin.name}</h1>
         <h2 className="text-6xl">успешно добавлен!</h2>
+
         <button
           className="button-flip text-2xl mt-20"
           data-hover-text="ВЫХОД"
-          onClick={() => window.location.reload()}
+          onClick={closeDrawer}
         ></button>
       </div>
     );
   }
 
+  // Если монета не выбрана, отображаем выбор
   if (!coin) {
     return (
       <div>
@@ -58,6 +61,7 @@ export default function AddAssetForm() {
     );
   }
 
+  // Функция обработки отправки данных формы
   async function onFinish(values) {
     const newAsset = {
       coin: coin,
@@ -71,14 +75,15 @@ export default function AddAssetForm() {
     };
 
     try {
-      addAsset(newAsset);
-
+      await addAsset(newAsset);
+      await refreshAssets();
       setSubmitted(true);
     } catch (error) {
       console.error('Ошибка добавления актива:', error);
     }
   }
 
+  // Основная форма
   return (
     <div>
       <div className="h-20 flex justify-between items-center mb-10 lg:m-10">
@@ -113,13 +118,13 @@ export default function AddAssetForm() {
         </Form.Item>
 
         <Form.Item name="purchaseDate" rules={[{ required: true }]}>
-          <DatePicker placeholder="Дата покупки" className="w-[100%]" />
+          <DatePicker placeholder="Дата покупки" className="w-full" />
         </Form.Item>
         <Form.Item name="priceBuy" rules={[{ required: true }]}>
-          <InputNumber placeholder="Стоимость актива" className="w-[100%]" />
+          <InputNumber placeholder="Стоимость актива" className="w-full" />
         </Form.Item>
         <Form.Item name="amountBuy" rules={[{ required: true }]}>
-          <InputNumber placeholder="Количество" className="w-[100%]" />
+          <InputNumber placeholder="Количество" className="w-full" />
         </Form.Item>
         <Divider />
 
@@ -139,13 +144,13 @@ export default function AddAssetForm() {
             }),
           ]}
         >
-          <DatePicker placeholder="Дата продажи" className="w-[100%]" />
+          <DatePicker placeholder="Дата продажи" className="w-full" />
         </Form.Item>
         <Form.Item name="priceSell" rules={[{ required: true }]}>
-          <InputNumber placeholder="Стоимость" className="w-[100%]" />
+          <InputNumber placeholder="Стоимость" className="w-full" />
         </Form.Item>
         <Form.Item name="amountSell" rules={[{ required: true }]}>
-          <InputNumber placeholder="Количество" className="w-[100%]" />
+          <InputNumber placeholder="Количество" className="w-full" />
         </Form.Item>
 
         <Form.Item>

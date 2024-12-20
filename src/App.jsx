@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { NotificationProvider } from './context/NotificationContext';
 import { CryptoProvider, useCrypto } from './context/CryptoContext';
-import AuthForm from './components/AuthForm';
+import AuthForm from './components/forms/AuthForm';
 import LoadingScreen from './components/animations/LoadingScreen';
 
 function AuthContainer() {

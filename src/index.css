@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: 'Nunito Sans';
-  src: url('/assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
+  src: url('@assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
     format('truetype');
   font-weight: 500;
   font-style: normal;
@@ -14,23 +14,15 @@
 
 @font-face {
   font-family: 'Nunito Sans';
-  src: url('/assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
+  src: url('@assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
     format('truetype');
   font-weight: 700;
   font-style: bold;
 }
 
 @font-face {
-  font-family: 'Nunito Sans';
-  src: url('/assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf')
-    format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
   font-family: 'Quantico-BoldItalic';
-  src: url('/assets/fonts/Quantico-BoldItalic.ttf') format('truetype');
+  src: url('@assets/fonts/Quantico-BoldItalic.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
 }
@@ -71,11 +63,6 @@ body::-webkit-scrollbar {
   color: black;
 }
 
-/* -------------------------Header------------------------- */
-.header {
-  @apply relative flex w-full items-center h-16 lg:h-32 justify-between bg-[#9FB3A2] px-8 lg:px-20;
-}
-
 /* -------------------------Header Buttons------------------------- */
 
 .button-flip {
@@ -105,49 +92,8 @@ body::-webkit-scrollbar {
 }
 
 /* -------------------------Header Modal------------------------- */
-.profit-statistic {
-  @apply flex justify-between gap-8 items-center;
-}
-
-.modal-card {
-  @apply rounded-none bg-gray-50 w-[330px] h-52 pb-4;
-}
-
 .modal .ant-modal-content {
   @apply bg-[#2C372E] rounded-none overflow-hidden mb-32 pb-40;
-}
-
-.modal-container {
-  @apply flex flex-wrap justify-center gap-6;
-}
-
-/* -------------------------Content------------------------- */
-.app-content {
-  @apply flex flex-col h-screen;
-}
-
-/* .marque-container {
-  @apply overflow-hidden whitespace-nowrap w-40 relative;
-}
-
-.marque-text {
-  @apply text-gray-900 text-3xl animate-marquee flex gap-48;
-} */
-
-.app-mid-content {
-  @apply flex flex-col min-h-[800px] md:min-h-[1200px] px-8 lg:px-20 lg:py-10 bg-[#2C372E];
-}
-
-.card-container {
-  @apply w-[330px] h-48 px-1 border border-gray-50 bg-gray-50 rounded-none lg:ml-6;
-}
-
-.interaktive-button {
-  @apply relative w-12 h-12 rounded-full flex items-center justify-center;
-}
-
-.app-end-content {
-  @apply flex flex-col bg-white px-8 lg:px-20;
 }
 
 /* -------------------------Content Table------------------------- */
@@ -166,26 +112,6 @@ body::-webkit-scrollbar {
 
 .scrollbar-thin:hover::-webkit-scrollbar-thumb {
   background-color: #6b7280; /* Тёмный цвет при наведении */
-}
-
-.table-container {
-  @apply w-full h-[500px] overflow-auto scrollbar-thin;
-}
-
-.table-header {
-  @apply sticky top-0 z-10 px-4 py-3 bg-gray-50 text-left cursor-pointer whitespace-nowrap;
-}
-
-.table-content {
-  @apply px-4 py-3;
-}
-
-.table-profit-positive {
-  @apply text-purple-700;
-}
-
-.table-profit-negative {
-  @apply text-gray-900;
 }
 
 /* -------------------------Ant Drower------------------------- */
@@ -278,51 +204,4 @@ body::-webkit-scrollbar {
 
 .button-auth {
   @apply border border-black px-7 py-2 rounded-3xl hover:bg-black hover:text-white duration-500 text-xl hover:scale-95;
-}
-
-.text-shadow-pop-tl {
-  -webkit-animation: text-shadow-pop-tl 0.6s both;
-  animation: text-shadow-pop-tl 0.6s both;
-  color: #111827;
-}
-
-@-webkit-keyframes text-shadow-pop-tl {
-  0% {
-    text-shadow: 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280,
-      0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280;
-    -webkit-transform: translateX(0) translateY(0);
-    transform: translateX(0) translateY(0);
-  }
-  100% {
-    text-shadow: -0.5px -0.5px #6b7280, -1px -1px #6b7280, -1.5px -1.5px #6b7280,
-      -2px -2px #6b7280, -2.5px -2.5px #6b7280, -3px -3px #6b7280,
-      -3.5px -3.5px #6b7280, -4px -4px #6b7280;
-    -webkit-transform: translateX(4px) translateY(4px);
-    transform: translateX(4px) translateY(4px);
-  }
-}
-
-@keyframes text-shadow-pop-tl {
-  0% {
-    text-shadow: 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280,
-      0 0 #6b7280, 0 0 #6b7280, 0 0 #6b7280;
-    -webkit-transform: translateX(0) translateY(0);
-    transform: translateX(0) translateY(0);
-  }
-  100% {
-    text-shadow: -0.5px -0.5px #6b7280, -1px -1px #6b7280, -1.5px -1.5px #6b7280,
-      -2px -2px #6b7280, -2.5px -2.5px #6b7280, -3px -3px #6b7280,
-      -3.5px -3.5px #6b7280, -4px -4px #6b7280;
-    -webkit-transform: translateX(4px) translateY(4px);
-    transform: translateX(4px) translateY(4px);
-  }
-}
-
-.bubble-container {
-  width: 400px;
-  height: 400px;
-  background-color: #9fb3a2;
-  border: 2px solid #2c372e;
-  border-radius: 12px;
-  overflow: hidden;
 }

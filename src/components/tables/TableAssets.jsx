@@ -17,36 +17,35 @@ import {
   calculateProfitLoss,
   calculateROI,
   calculateHoldingTime,
-} from '../utils/calculateMetrics';
-import { useCrypto } from '../context/CryptoContext';
+} from '@utils/calculateMetrics';
+import { useCrypto } from '@context/CryptoContext';
 
 export default function TableAssets() {
   const { assets, removeAsset } = useCrypto();
 
+  // Преобразование данных для таблицы
   const data = React.useMemo(
     () =>
       assets.map((asset) => ({
-        id: asset.id,
-        name: asset.coin.name,
-        sector: asset.sector,
-        purchaseDate: asset.purchaseDate,
-        priceBuyRaw: asset.priceBuy, // Используем для сортировки
-        priceBuy: `$${asset.priceBuy.toFixed(2)}`,
-        amountBuy: asset.amountBuy,
-        purchaseSum: calculatePurchaseSum(asset).toFixed(2),
-        saleDate: asset.saleDate || null,
-        priceSellRaw: asset.saleDate ? asset.priceSell : null, // Используем для сортировки
-        priceSell: asset.saleDate ? `$${asset.priceSell.toFixed(2)}` : '—',
+        id: asset.id, // Уникальный идентификатор
+        name: asset.coin.name, // Название актива
+        sector: asset.sector, // Сектор
+        purchaseDate: asset.purchaseDate, // Дата покупки
+        priceBuy: `$${asset.priceBuy.toFixed(2)}`, // Цена покупки (форматированная)
+        purchaseSum: `$${calculatePurchaseSum(asset).toFixed(2)}`, // Сумма покупки
+        saleDate: asset.saleDate || null, // Дата продажи
+        priceSell: asset.saleDate ? `$${asset.priceSell.toFixed(2)}` : '—', // Цена продажи
         saleSum: asset.saleDate
           ? `$${calculateSaleSum(asset).toFixed(2)}`
-          : '—',
-        profitLoss: calculateProfitLoss(asset),
-        roi: calculateROI(asset),
-        holdingTime: calculateHoldingTime(asset),
+          : '—', // Сумма продажи
+        profitLoss: calculateProfitLoss(asset), // Прибыль/убыток
+        roi: calculateROI(asset), // ROI
+        holdingTime: calculateHoldingTime(asset), // Время удержания
       })),
     [assets]
   );
 
+  // Определение колонок таблицы
   const columns = React.useMemo(
     () => [
       {
@@ -63,19 +62,9 @@ export default function TableAssets() {
         header: 'Дата покупки',
         cell: (info) => new Date(info.getValue()).toLocaleDateString(),
       },
-      // {
-      //   accessorKey: 'priceBuyRaw',
-      //   header: 'Цена покупки',
-      //   cell: (info) => `$${info.getValue().toFixed(2)}`,
-      // },
-      // {
-      //   accessorKey: 'amountBuy',
-      //   header: 'Количество',
-      // },
       {
         accessorKey: 'purchaseSum',
         header: 'Сумма покупки',
-        cell: (info) => `$${info.getValue()}`,
       },
       {
         accessorKey: 'saleDate',
@@ -85,12 +74,6 @@ export default function TableAssets() {
             ? new Date(info.getValue()).toLocaleDateString()
             : '—',
       },
-      // {
-      //   accessorKey: 'priceSellRaw',
-      //   header: 'Цена продажи',
-      //   cell: (info) =>
-      //     info.getValue() ? `$${info.getValue().toFixed(2)}` : '—',
-      // },
       {
         accessorKey: 'saleSum',
         header: 'Сумма продажи',
@@ -101,11 +84,7 @@ export default function TableAssets() {
         cell: (info) => {
           const value = info.getValue();
           return (
-            <span
-              className={
-                value > 0 ? 'table-profit-positive' : 'table-profit-negative'
-              }
-            >
+            <span className={value > 0 ? 'text-purple-700' : 'text-gray-900'}>
               ${value.toFixed(2)}
             </span>
           );
@@ -138,20 +117,21 @@ export default function TableAssets() {
     [removeAsset]
   );
 
-  // Создание таблицы
+  // Состояние сортировки
   const [sorting, setSorting] = React.useState([]);
 
+  // Создание таблицы с использованием React Table
   const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    state: { sorting },
-    onSortingChange: setSorting,
+    data, // Данные
+    columns, // Колонки
+    getCoreRowModel: getCoreRowModel(), // Основная модель строк
+    getSortedRowModel: getSortedRowModel(), // Модель сортировки
+    state: { sorting }, // Текущее состояние сортировки
+    onSortingChange: setSorting, // Обработчик изменения сортировки
   });
 
   return (
-    <div className="table-container">
+    <div className="w-full h-[500px] overflow-auto scrollbar-thin">
       <table className="table-auto">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -160,7 +140,7 @@ export default function TableAssets() {
                 <th
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
-                  className="table-header"
+                  className="sticky top-0 z-10 px-4 py-3 bg-gray-50 text-left cursor-pointer whitespace-nowrap"
                 >
                   {flexRender(
                     header.column.columnDef.header,
@@ -182,7 +162,7 @@ export default function TableAssets() {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} className="hover:bg-gray-100">
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="table-content">
+                <td key={cell.id} className="px-4 py-3">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
