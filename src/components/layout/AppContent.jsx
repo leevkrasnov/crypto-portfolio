@@ -40,7 +40,7 @@ export default function AppContent({ headerRef }) {
         </section>
       </div>
       <div className="app-end-content" ref={tableSectionRef}>
-        <section className="text-3xl lg:text-6xl font-bold text-gray-900 flex justify-end mt-20 mb-16">
+        <section className="text-4xl lg:text-6xl font-bold text-gray-900 flex justify-end mt-20 mb-16">
           Хроника сделок
         </section>
         <section className="flex flex-col">

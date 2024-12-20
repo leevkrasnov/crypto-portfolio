@@ -135,7 +135,7 @@ body::-webkit-scrollbar {
 } */
 
 .app-mid-content {
-  @apply flex flex-col min-h-[600px] md:min-h-[1200px] px-8 lg:px-20 lg:py-10 bg-[#2C372E];
+  @apply flex flex-col min-h-[800px] md:min-h-[1200px] px-8 lg:px-20 lg:py-10 bg-[#2C372E];
 }
 
 .card-container {

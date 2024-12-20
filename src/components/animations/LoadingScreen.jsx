@@ -53,17 +53,6 @@ export default function LoadingScreen({ isDataReady, onAnimationEnd }) {
   if (isHidden) return null;
 
   return (
-    // <div
-    //   className={`fixed inset-0 flex flex-col items-center justify-center bg-[#9fb3a2] text-gray-50 ${
-    //     isLoaded ? 'opacity-0' : 'opacity-100'
-    //   } transition-opacity duration-500 ease-in-out`}
-    // >
-    //   <div className="relative w-[20%] h-8 shadow-2xl border border-black bg-gray-200  overflow-hidden">
-    //     <div
-    //       className="absolute top-0 left-0 h-full bg-[#2C372E] ease-linear transition-[width] duration-[500ms]"
-    //       style={{ width: `${progress}%` }}
-    //     />
-    //   </div>
     <div
       className={`relative w-screen h-screen ${
         isLoaded ? 'opacity-0' : 'opacity-100'
@@ -77,7 +66,7 @@ export default function LoadingScreen({ isDataReady, onAnimationEnd }) {
           className="w-60 h-60"
         />
       </div>
-      <div className="font-quantico absolute bottom-10 left-10 text-7xl text-gray-800">
+      <div className="hidden md:font-quantico md:absolute md:bottom-10 md:left-10 md:text-7xl md:text-gray-800">
         {progress}%
       </div>
     </div>
