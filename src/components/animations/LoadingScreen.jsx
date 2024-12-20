@@ -66,9 +66,9 @@ export default function LoadingScreen({ isDataReady, onAnimationEnd }) {
           className="w-60 h-60"
         />
       </div>
-      <div className="hidden md:font-quantico md:absolute md:bottom-10 md:left-10 md:text-7xl md:text-gray-800">
+      {/* <div className="hidden md:font-quantico md:absolute md:bottom-10 md:left-10 md:text-7xl md:text-gray-800">
         {progress}%
-      </div>
+      </div> */}
     </div>
   );
 }

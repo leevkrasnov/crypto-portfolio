@@ -27,7 +27,7 @@ export default function AppHeader({ headerRef }) {
         <Logo className="w-[1em] h-[1em] inline-block align-middle" />
         <span className="leading-none">INBOOK</span>
       </div>
-      <Logo className="w-[30px] md:hidden" />
+      <Logo className="w-[40px] md:hidden" />
       <div className="flex items-center text-gray-900 gap-2">
         <button
           className="button-flip min-w-24 text-sm lg:text-lg"
